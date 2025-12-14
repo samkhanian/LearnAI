@@ -581,12 +581,14 @@
         }
         
         /* ۱۰. آزمایشگاه - طراحی جدید */
-        .lab-page-container {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            height: calc(100vh - var(--header-height) - var(--footer-height) - 4rem);
-        }
+       .lab-page-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-height: calc(100vh - var(--header-height) - var(--footer-height) - 4rem);
+    height: auto;
+}
+
         
         /* بخش بالایی - تنظیمات مسئله */
         .problem-config-section {
@@ -694,25 +696,30 @@
         }
         
         /* بخش میانی - محتوای اصلی آزمایشگاه */
-        .lab-main-content {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 2rem;
-            flex: 1;
-            min-height: 500px;
-        }
+       .lab-main-content {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+    flex: 1;
+    min-height: 500px;
+    height: auto;
+}
         
         /* پنل چپ - شطرنج و کنترل‌های مینیمال */
-        .chessboard-panel {
-            background: var(--light);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--gray-200);
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
+       .chessboard-panel {
+    background: var(--light);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-200);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: fit-content;
+    max-height: 800px;
+    overflow: auto;
+}
+
         
         .chessboard-header {
             display: flex;
@@ -800,17 +807,19 @@
         }
         
         /* پنل راست - آمار و اطلاعات */
-        .stats-panel {
-            background: var(--light);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--gray-200);
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            overflow-y: auto;
-        }
+       .stats-panel {
+    background: var(--light);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-200);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+    height: fit-content;
+    max-height: 800px;
+}
         
         .stats-header {
             display: flex;
