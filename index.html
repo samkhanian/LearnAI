@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- استایل‌های داخلی -->
     <style>
         /* ==================== CSS START ==================== */
         
@@ -18,12 +17,18 @@
             /* رنگ‌های اصلی - تم روشن */
             --primary: #6366f1;
             --primary-light: #a5b4fc;
+            --primary-dark: #4f46e5;
             --secondary: #10b981;
             --secondary-light: #a7f3d0;
+            --secondary-dark: #059669;
             --accent: #f59e0b;
             --accent-light: #fde68a;
+            --accent-dark: #d97706;
             --danger: #ef4444;
             --danger-light: #fecaca;
+            --danger-dark: #dc2626;
+            --warning: #f59e0b;
+            --info: #3b82f6;
             
             /* رنگ‌های خنثی */
             --dark: #1f2937;
@@ -31,13 +36,20 @@
             --gray-50: #f9fafb;
             --gray-100: #f3f4f6;
             --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
             --gray-800: #1f2937;
+            --gray-900: #111827;
             
             /* سایه‌ها */
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
             
             /* انیمیشن‌ها */
             --transition-fast: all 0.15s ease;
@@ -48,26 +60,41 @@
             --radius-sm: 6px;
             --radius-md: 12px;
             --radius-lg: 20px;
+            --radius-xl: 30px;
             --radius-full: 9999px;
+            
+            /* ابعاد */
+            --header-height: 70px;
+            --footer-height: 100px;
         }
         
         /* تم تیره */
         .dark-theme {
             --primary: #818cf8;
             --primary-light: #4f46e5;
+            --primary-dark: #3730a3;
             --secondary: #34d399;
             --secondary-light: #065f46;
+            --secondary-dark: #047857;
             --accent: #fbbf24;
             --accent-light: #92400e;
+            --accent-dark: #b45309;
             --danger: #f87171;
             --danger-light: #7f1d1d;
+            --danger-dark: #991b1b;
             
             --dark: #f9fafb;
             --light: #111827;
             --gray-50: #1f2937;
             --gray-100: #374151;
             --gray-200: #4b5563;
-            --gray-800: #f3f4f6;
+            --gray-300: #6b7280;
+            --gray-400: #9ca3af;
+            --gray-500: #d1d5db;
+            --gray-600: #e5e7eb;
+            --gray-700: #f3f4f6;
+            --gray-800: #f9fafb;
+            --gray-900: #ffffff;
         }
         
         /* ۲. ریست و پایه */
@@ -79,6 +106,7 @@
         
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: calc(var(--header-height) + 20px);
         }
         
         body {
@@ -88,6 +116,8 @@
             line-height: 1.6;
             min-height: 100vh;
             transition: var(--transition-normal);
+            display: flex;
+            flex-direction: column;
         }
         
         /* ۳. تایپوگرافی */
@@ -97,13 +127,32 @@
             margin-bottom: 1rem;
         }
         
-        h1 { font-size: 2.5rem; }
-        h2 { font-size: 2rem; }
-        h3 { font-size: 1.5rem; }
-        h4 { font-size: 1.25rem; }
+        h1 { 
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 { 
+            font-size: 2rem;
+            color: var(--primary-dark);
+        }
+        
+        h3 { 
+            font-size: 1.5rem;
+            color: var(--gray-800);
+        }
+        
+        h4 { 
+            font-size: 1.25rem;
+            color: var(--gray-700);
+        }
         
         p {
             margin-bottom: 1rem;
+            color: var(--gray-600);
         }
         
         a {
@@ -116,11 +165,19 @@
             color: var(--primary-light);
         }
         
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
         /* ۴. کامپوننت‌های پایه */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
+            width: 100%;
         }
         
         .btn {
@@ -138,37 +195,125 @@
             transition: var(--transition-normal);
             background-color: var(--gray-200);
             color: var(--dark);
+            position: relative;
+            overflow: hidden;
         }
         
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), #8b5cf6);
-            color: white;
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0));
+            opacity: 0;
+            transition: var(--transition-normal);
         }
         
-        .btn-primary:hover {
+        .btn:hover::after {
+            opacity: 1;
+        }
+        
+        .btn:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
         }
         
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+            color: white;
+        }
+        
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+        
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
         .card {
             background: var(--light);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             padding: 1.5rem;
             box-shadow: var(--shadow-md);
             transition: var(--transition-normal);
             border: 1px solid var(--gray-200);
+            height: 100%;
         }
         
         .card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-xl);
+            border-color: var(--primary-light);
+        }
+        
+        .card-header {
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-100);
+        }
+        
+        .card-footer {
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 2px solid var(--gray-100);
         }
         
         /* ۵. لایه‌های صفحه */
         .page {
             display: none;
-            min-height: calc(100vh - 80px);
-            padding: 2rem 0;
+            min-height: calc(100vh - var(--header-height) - var(--footer-height));
+            padding: 3rem 0;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .page.active {
@@ -182,14 +327,21 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 1rem 0;
+            height: var(--header-height);
             border-bottom: 1px solid var(--gray-200);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .dark-theme #main-header {
+            background: rgba(17, 24, 39, 0.95);
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 100%;
         }
         
         .logo {
@@ -203,23 +355,48 @@
         
         .logo-icon {
             font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
         
         .nav {
             display: flex;
-            gap: 1.5rem;
+            gap: 0.5rem;
             align-items: center;
         }
         
         .nav-link {
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.25rem;
             border-radius: var(--radius-md);
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-normal);
+        }
+        
+        .nav-link:hover {
+            background-color: var(--gray-100);
+            color: var(--primary);
         }
         
         .nav-link.active {
-            background-color: var(--primary-light);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
         }
         
         /* ۷. فوتر */
@@ -235,34 +412,61 @@
             opacity: 0.8;
         }
         
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            opacity: 0.8;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
         /* ۸. صفحه خانه */
         .hero-section {
-            min-height: 80vh;
+            min-height: calc(80vh - var(--header-height));
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, 
-                var(--primary-light) 0%, 
-                transparent 50%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: -1;
         }
         
         .hero-content {
             max-width: 600px;
+            position: relative;
+            z-index: 1;
         }
         
         .hero-title {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            line-height: 1.1;
         }
         
         .hero-subtitle {
             font-size: 1.25rem;
-            color: var(--gray-800);
+            color: var(--gray-600);
             margin-bottom: 2rem;
-            opacity: 0.9;
+            line-height: 1.6;
         }
         
         .hero-actions {
@@ -271,25 +475,67 @@
             flex-wrap: wrap;
         }
         
+        .features-section {
+            padding: 4rem 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
         /* ۹. صفحه آموزش */
         .levels-container {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 3rem;
         }
         
-        .level-card {
-            border-left: 4px solid;
-            padding-left: 1.5rem;
+        .level-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid;
         }
         
-        .level-beginner { border-color: var(--secondary); }
-        .level-intermediate { border-color: var(--primary); }
-        .level-advanced { border-color: var(--accent); }
+        .level-badge {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .level-beginner .level-header { border-color: var(--secondary); }
+        .level-intermediate .level-header { border-color: var(--primary); }
+        .level-advanced .level-header { border-color: var(--accent); }
+        
+        .level-beginner .level-badge { background: var(--secondary); }
+        .level-intermediate .level-badge { background: var(--primary); }
+        .level-advanced .level-badge { background: var(--accent); }
         
         .lessons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1.5rem;
             margin-top: 1rem;
         }
@@ -299,36 +545,76 @@
             overflow: hidden;
         }
         
-        .lesson-badge {
+        .lesson-number {
             position: absolute;
-            top: 0.75rem;
-            left: 0.75rem;
+            top: 1rem;
+            left: 1rem;
             background: var(--primary);
             color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-full);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
             font-size: 0.875rem;
-            font-weight: 500;
+        }
+        
+        .lesson-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-200);
         }
         
         /* ۱۰. آزمایشگاه */
+        .lab-header {
+            margin-bottom: 2rem;
+        }
+        
         .lab-container {
             display: grid;
-            grid-template-columns: 300px 1fr;
+            grid-template-columns: 350px 1fr;
             gap: 2rem;
-            height: calc(100vh - 200px);
+            height: calc(100vh - var(--header-height) - var(--footer-height) - 150px);
         }
         
         .control-panel {
             background: var(--light);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             padding: 1.5rem;
             overflow-y: auto;
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .panel-section {
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .panel-section h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
         }
         
         .control-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .control-group:last-child {
+            margin-bottom: 0;
         }
         
         .control-label {
@@ -336,16 +622,19 @@
             margin-bottom: 0.5rem;
             font-weight: 600;
             color: var(--dark);
+            font-size: 0.95rem;
         }
         
         .control-input {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--gray-200);
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-300);
             border-radius: var(--radius-md);
             font-family: inherit;
             background: var(--light);
             color: var(--dark);
+            font-size: 1rem;
+            transition: var(--transition-fast);
         }
         
         .control-input:focus {
@@ -354,33 +643,216 @@
             box-shadow: 0 0 0 3px var(--primary-light);
         }
         
-        .visualization-area {
+        .control-input.select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 1rem center;
+            background-size: 16px;
+            padding-left: 2.5rem;
+        }
+        
+        .range-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .range-control input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--gray-300);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .range-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: 3px solid var(--light);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-fast);
+        }
+        
+        .range-control input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        
+        .range-value {
+            min-width: 3rem;
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .speed-controls {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .speed-controls .btn {
+            flex: 1;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .execution-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+        
+        .stats {
             background: var(--light);
             border-radius: var(--radius-md);
+            padding: 1.25rem;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-label {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+        }
+        
+        .stat-value {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .visualization-area {
+            background: var(--light);
+            border-radius: var(--radius-lg);
             padding: 1.5rem;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
-            position: relative;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .viz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-100);
+        }
+        
+        .viz-tabs {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--gray-100);
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+        }
+        
+        .viz-tab {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 500;
+            color: var(--gray-600);
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .viz-tab:hover {
+            color: var(--primary);
+            background: var(--light);
+        }
+        
+        .viz-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .viz-content {
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .viz-pane {
+            height: 100%;
+            display: none;
+        }
+        
+        .viz-pane.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .chessboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            height: 100%;
         }
         
         .chessboard {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             grid-template-rows: repeat(8, 1fr);
-            width: 400px;
-            height: 400px;
-            margin: 0 auto;
-            border: 3px solid var(--dark);
-            border-radius: 8px;
+            width: min(500px, 70vh);
+            height: min(500px, 70vh);
+            border: 4px solid var(--dark);
+            border-radius: 12px;
             overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            position: relative;
         }
         
         .chess-cell {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 3rem);
             transition: all 0.3s ease;
+            position: relative;
         }
         
         .chess-cell.white {
@@ -391,41 +863,172 @@
             background-color: #b58863;
         }
         
+        .chess-cell.highlight {
+            background-color: var(--secondary-light) !important;
+        }
+        
         .chess-cell.conflict {
             animation: conflict 0.5s ease;
+            background-color: var(--danger-light) !important;
         }
         
         @keyframes conflict {
             0%, 100% { background-color: inherit; }
-            50% { background-color: var(--danger-light); }
+            50% { transform: scale(1.05); }
         }
         
-        /* ۱۱. رسپانسیو */
-        @media (max-width: 1024px) {
+        .chess-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .tree-container {
+            width: 100%;
+            height: 100%;
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            overflow: auto;
+            padding: 1rem;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .code-preview-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .code-editor {
+            flex: 1;
+            background: #1e1e1e;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--gray-700);
+        }
+        
+        .code-content {
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: #d4d4d4;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            overflow: auto;
+            height: 100%;
+        }
+        
+        .code-line {
+            padding: 0.125rem 0;
+            white-space: pre;
+        }
+        
+        .code-line.highlight {
+            background: rgba(59, 130, 246, 0.3);
+            border-left: 3px solid var(--primary);
+        }
+        
+        /* ۱۱. صفحه منابع */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .resource-card {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+        
+        .resource-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        /* ۱۲. رسپانسیو */
+        @media (max-width: 1200px) {
             .lab-container {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto 1fr;
+                height: auto;
+                min-height: 800px;
             }
             
             .chessboard {
-                width: 350px;
-                height: 350px;
+                width: min(400px, 60vh);
+                height: min(400px, 60vh);
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .lessons-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .resources-grid {
+                grid-template-columns: 1fr;
             }
         }
         
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.3rem;
             }
             
-            .header-content {
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-actions {
                 flex-direction: column;
-                gap: 1rem;
+            }
+            
+            .hero-actions .btn {
+                width: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
             }
             
             .nav {
-                flex-wrap: wrap;
+                position: fixed;
+                top: var(--header-height);
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - var(--header-height));
+                background: var(--light);
+                flex-direction: column;
+                padding: 2rem;
+                transition: var(--transition-normal);
+                box-shadow: var(--shadow-xl);
+                z-index: 999;
+            }
+            
+            .nav.active {
+                right: 0;
+            }
+            
+            .nav-link {
+                width: 100%;
                 justify-content: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
             }
             
             .lessons-grid {
@@ -433,27 +1036,63 @@
             }
             
             .chessboard {
-                width: 300px;
-                height: 300px;
+                width: min(350px, 50vh);
+                height: min(350px, 50vh);
+            }
+            
+            .execution-controls {
+                grid-template-columns: 1fr;
             }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
             .hero-title {
                 font-size: 2rem;
             }
             
-            .hero-actions {
-                flex-direction: column;
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            h3 { font-size: 1.25rem; }
+            
+            .page {
+                padding: 2rem 0;
             }
             
             .chessboard {
-                width: 250px;
-                height: 250px;
+                width: 300px;
+                height: 300px;
+            }
+            
+            .speed-controls {
+                flex-direction: column;
+            }
+            
+            .viz-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .viz-tab {
+                flex: 1;
+                justify-content: center;
             }
         }
         
-        /* ۱۲. یوتیلیتی‌ها */
+        @media (max-width: 400px) {
+            .chessboard {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .hero-actions .btn {
+                padding: 0.75rem 1rem;
+            }
+        }
+        
+        /* ۱۳. یوتیلیتی‌ها */
         .hidden {
             display: none !important;
         }
@@ -462,15 +1101,190 @@
             text-align: center;
         }
         
-        .mt-1 { margin-top: 0.5rem; }
-        .mt-2 { margin-top: 1rem; }
-        .mt-3 { margin-top: 1.5rem; }
-        .mt-4 { margin-top: 2rem; }
+        .text-right {
+            text-align: right;
+        }
         
-        .mb-1 { margin-bottom: 0.5rem; }
-        .mb-2 { margin-bottom: 1rem; }
-        .mb-3 { margin-bottom: 1.5rem; }
-        .mb-4 { margin-bottom: 2rem; }
+        .flex {
+            display: flex;
+        }
+        
+        .flex-col {
+            flex-direction: column;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .justify-center {
+            justify-content: center;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .gap-1 { gap: 0.25rem; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-3 { gap: 1rem; }
+        .gap-4 { gap: 1.5rem; }
+        .gap-5 { gap: 2rem; }
+        
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-3 { margin-top: 1rem; }
+        .mt-4 { margin-top: 1.5rem; }
+        .mt-5 { margin-top: 2rem; }
+        
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 1rem; }
+        .mb-4 { margin-bottom: 1.5rem; }
+        .mb-5 { margin-bottom: 2rem; }
+        
+        .p-1 { padding: 0.25rem; }
+        .p-2 { padding: 0.5rem; }
+        .p-3 { padding: 1rem; }
+        .p-4 { padding: 1.5rem; }
+        .p-5 { padding: 2rem; }
+        
+        .rounded { border-radius: var(--radius-md); }
+        .rounded-lg { border-radius: var(--radius-lg); }
+        .rounded-full { border-radius: var(--radius-full); }
+        
+        .shadow { box-shadow: var(--shadow-md); }
+        .shadow-lg { box-shadow: var(--shadow-lg); }
+        
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        
+        /* ۱۴. انیمیشن‌های سفارشی */
+        @keyframes slideInRight {
+            from { transform: translateX(30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes placeQueen {
+            0% { opacity: 0; transform: scale(0) rotate(-180deg); }
+            70% { transform: scale(1.1) rotate(10deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .animate-bounce {
+            animation: bounce 1s infinite;
+        }
+        
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        
+        /* ۱۵. نوتفیکیشن و آلرت */
+        .notification {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 9999;
+            animation: slideInRight 0.3s ease;
+            border-left: 4px solid;
+            max-width: 400px;
+        }
+        
+        .notification.success {
+            border-left-color: var(--secondary);
+        }
+        
+        .notification.error {
+            border-left-color: var(--danger);
+        }
+        
+        .notification.warning {
+            border-left-color: var(--warning);
+        }
+        
+        .notification.info {
+            border-left-color: var(--info);
+        }
+        
+        .notification-icon {
+            font-size: 1.5rem;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: var(--gray-500);
+            padding: 0.25rem;
+            border-radius: var(--radius-sm);
+        }
+        
+        .notification-close:hover {
+            background: var(--gray-200);
+            color: var(--dark);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-full);
+            transition: width 0.3s ease;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--gray-300);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
         
         /* ==================== CSS END ==================== */
     </style>
@@ -483,27 +1297,31 @@
         <div class="container header-content">
             <div class="logo">
                 <span class="logo-icon">🧠</span>
-                <span>آموزش هوش مصنوعی</span>
+                <span class="text-gradient">آموزش هوش مصنوعی</span>
             </div>
             
-            <nav class="nav">
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav" id="main-nav">
                 <a href="#home" class="nav-link active" data-page="home">
                     <i class="fas fa-home"></i>
-                    خانه
+                    <span>خانه</span>
                 </a>
                 <a href="#learn" class="nav-link" data-page="learn">
                     <i class="fas fa-graduation-cap"></i>
-                    آموزش
+                    <span>آموزش</span>
                 </a>
                 <a href="#lab" class="nav-link" data-page="lab">
                     <i class="fas fa-flask"></i>
-                    آزمایشگاه
+                    <span>آزمایشگاه</span>
                 </a>
                 <a href="#resources" class="nav-link" data-page="resources">
                     <i class="fas fa-book"></i>
-                    منابع
+                    <span>منابع</span>
                 </a>
-                <button id="theme-toggle" class="btn">
+                <button id="theme-toggle" class="btn btn-outline">
                     <i class="fas fa-moon"></i>
                 </button>
             </nav>
@@ -520,29 +1338,28 @@
                     <h1 class="hero-title">
                         هوش مصنوعی را
                         <br>
-                        با <span class="highlight">۸ وزیر</span> بیاموزید
+                        با <span class="text-gradient">۸ وزیر</span> بیاموزید
                     </h1>
                     <p class="hero-subtitle">
-                        از مفاهیم پایه تا الگوریتم‌های پیشرفته
-                        <br>
-                        در یک محیط تعاملی و جذاب
+                        از مفاهیم پایه تا الگوریتم‌های پیشرفته در یک محیط تعاملی و جذاب.
+                        با مسئله کلاسیک ۸ وزیر، تمام مفاهیم هوش مصنوعی را به صورت عملی یاد بگیرید.
                     </p>
                     <div class="hero-actions">
-                        <button id="start-learning" class="btn btn-primary">
+                        <button id="start-learning" class="btn btn-primary btn-lg">
                             <i class="fas fa-rocket"></i>
-                            شروع یادگیری
+                            <span>شروع یادگیری</span>
                         </button>
-                        <button id="view-demo" class="btn">
+                        <button id="view-demo" class="btn btn-outline btn-lg">
                             <i class="fas fa-play-circle"></i>
-                            مشاهده دمو
+                            <span>مشاهده دمو</span>
                         </button>
                     </div>
                 </div>
             </div>
             
-            <div class="features-section mt-4">
-                <h2 class="text-center mb-3">چرا این پلتفرم؟</h2>
-                <div class="features-grid">
+            <div class="features-section">
+                <h2 class="text-center mb-4">ویژگی‌های پلتفرم</h2>
+                <div class="features-grid" id="features-grid">
                     <!-- ویژگی‌ها با JS پر می‌شوند -->
                 </div>
             </div>
@@ -550,85 +1367,214 @@
         
         <!-- صفحه آموزش -->
         <section id="learn-page" class="page">
-            <h1 class="text-center">سطح‌های آموزشی</h1>
-            <div class="levels-container mt-3">
+            <h1 class="text-center mb-5">سطح‌های آموزشی</h1>
+            <div class="levels-container" id="levels-container">
                 <!-- سطوح آموزشی با JS پر می‌شوند -->
             </div>
         </section>
         
         <!-- صفحه آزمایشگاه -->
         <section id="lab-page" class="page">
-            <h1>آزمایشگاه ۸ وزیر</h1>
-            <p class="mb-3">الگوریتم‌های مختلف را اجرا و مقایسه کنید</p>
+            <div class="lab-header">
+                <h1>آزمایشگاه ۸ وزیر</h1>
+                <p class="text-center">الگوریتم‌های مختلف را اجرا، تجسم و مقایسه کنید</p>
+            </div>
             
             <div class="lab-container">
                 <!-- پنل کنترل -->
                 <div class="control-panel">
-                    <h3><i class="fas fa-cogs"></i> تنظیمات</h3>
-                    
-                    <div class="control-group">
-                        <label class="control-label">اندازه صفحه:</label>
-                        <div class="range-control">
-                            <input type="range" id="board-size" min="4" max="12" value="8" class="control-input">
-                            <span id="board-size-value">8</span>
+                    <div class="panel-section">
+                        <h3><i class="fas fa-sliders-h"></i> تنظیمات مسئله</h3>
+                        
+                        <div class="control-group">
+                            <label class="control-label">اندازه صفحه (N):</label>
+                            <div class="range-control">
+                                <input type="range" id="board-size" min="4" max="12" value="8" class="control-input">
+                                <span class="range-value" id="board-size-value">8</span>
+                            </div>
+                            <div class="text-right mt-1">
+                                <small>تعداد وزیرها و ابعاد صفحه</small>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label class="control-label">الگوریتم:</label>
+                            <select id="algorithm-select" class="control-input select">
+                                <option value="backtracking">Backtracking (عقب‌گرد)</option>
+                                <option value="dfs">جستجوی عمق‌اول (DFS)</option>
+                                <option value="bfs">جستجوی سطح‌اول (BFS)</option>
+                                <option value="heuristic">جستجوی هیوریستیک</option>
+                            </select>
                         </div>
                     </div>
                     
-                    <div class="control-group">
-                        <label class="control-label">الگوریتم:</label>
-                        <select id="algorithm-select" class="control-input">
-                            <option value="backtracking">Backtracking</option>
-                            <option value="dfs">DFS</option>
-                            <option value="bfs">BFS</option>
-                        </select>
-                    </div>
-                    
-                    <div class="control-group">
-                        <label class="control-label">سرعت:</label>
-                        <div class="speed-controls">
-                            <button class="btn" data-speed="0.5">کند</button>
-                            <button class="btn btn-primary" data-speed="1">معمولی</button>
-                            <button class="btn" data-speed="2">سریع</button>
+                    <div class="panel-section">
+                        <h3><i class="fas fa-tachometer-alt"></i> کنترل اجرا</h3>
+                        
+                        <div class="control-group">
+                            <label class="control-label">سرعت انیمیشن:</label>
+                            <div class="speed-controls">
+                                <button class="btn" data-speed="0.5">🐌 کند</button>
+                                <button class="btn btn-primary" data-speed="1">🚶 معمولی</button>
+                                <button class="btn" data-speed="2">🏃 سریع</button>
+                                <button class="btn" data-speed="0">⏸️ توقف</button>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <div class="execution-controls">
+                                <button id="start-btn" class="btn btn-primary">
+                                    <i class="fas fa-play"></i>
+                                    شروع اجرا
+                                </button>
+                                <button id="step-btn" class="btn btn-secondary">
+                                    <i class="fas fa-step-forward"></i>
+                                    قدم بعدی
+                                </button>
+                                <button id="pause-btn" class="btn btn-accent">
+                                    <i class="fas fa-pause"></i>
+                                    مکث
+                                </button>
+                                <button id="reset-btn" class="btn btn-danger">
+                                    <i class="fas fa-redo"></i>
+                                    ریست
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label class="control-label">نمایش:</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="show-animation" checked>
+                                    <span>انیمیشن مراحل</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="show-conflicts" checked>
+                                    <span>بررسی برخوردها</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="show-stats" checked>
+                                    <span>نمایش آمار زنده</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="control-group">
-                        <button id="start-btn" class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-play"></i>
-                            شروع اجرا
-                        </button>
-                        <button id="reset-btn" class="btn mt-1" style="width: 100%;">
-                            <i class="fas fa-redo"></i>
-                            ریست
-                        </button>
-                    </div>
-                    
-                    <div class="stats mt-3">
-                        <h4>آمار اجرا:</h4>
-                        <div class="stat-item">
-                            <span>گره‌های بررسی شده:</span>
-                            <span id="nodes-checked">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>زمان اجرا:</span>
-                            <span id="execution-time">0ms</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>راه‌حل‌ها:</span>
-                            <span id="solutions-found">0</span>
+                    <div class="panel-section">
+                        <h3><i class="fas fa-chart-bar"></i> آمار اجرا</h3>
+                        <div class="stats">
+                            <div class="stat-item">
+                                <span class="stat-label">گره‌های بررسی شده:</span>
+                                <span class="stat-value" id="nodes-checked">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">زمان اجرا:</span>
+                                <span class="stat-value" id="execution-time">0ms</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">راه‌حل‌های پیدا شده:</span>
+                                <span class="stat-value" id="solutions-found">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">عمق جستجو:</span>
+                                <span class="stat-value" id="search-depth">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">ضریب انشعاب:</span>
+                                <span class="stat-value" id="branching-factor">0.00</span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- ناحیه تجسم -->
                 <div class="visualization-area">
-                    <h3><i class="fas fa-eye"></i> تجسم الگوریتم</h3>
-                    <div id="chessboard-container" class="mt-2">
-                        <!-- شطرنج اینجا رندر می‌شود -->
+                    <div class="viz-header">
+                        <h3><i class="fas fa-eye"></i> تجسم الگوریتم</h3>
+                        <div class="viz-tabs">
+                            <button class="viz-tab active" data-viz="board">
+                                <i class="fas fa-chess-board"></i>
+                                صفحه شطرنج
+                            </button>
+                            <button class="viz-tab" data-viz="tree">
+                                <i class="fas fa-project-diagram"></i>
+                                درخت جستجو
+                            </button>
+                            <button class="viz-tab" data-viz="code">
+                                <i class="fas fa-code"></i>
+                                کد الگوریتم
+                            </button>
+                            <button class="viz-tab" data-viz="chart">
+                                <i class="fas fa-chart-line"></i>
+                                نمودار
+                            </button>
+                        </div>
                     </div>
-                    <div id="code-preview" class="mt-3">
-                        <h4>کد الگوریتم:</h4>
-                        <pre id="algorithm-code"><code>// کد اینجا نمایش داده می‌شود</code></pre>
+                    
+                    <div class="viz-content">
+                        <!-- تب ۱: صفحه شطرنج -->
+                        <div class="viz-pane active" id="board-viz">
+                            <div class="chessboard-container">
+                                <div class="chessboard" id="chessboard">
+                                    <!-- شطرنج با JS ساخته می‌شود -->
+                                </div>
+                                <div class="chess-controls">
+                                    <button id="show-solution-btn" class="btn btn-outline">
+                                        <i class="fas fa-eye"></i>
+                                        نمایش راه‌حل
+                                    </button>
+                                    <button id="clear-board-btn" class="btn btn-outline">
+                                        <i class="fas fa-eraser"></i>
+                                        پاک کردن
+                                    </button>
+                                    <button id="export-board-btn" class="btn btn-outline">
+                                        <i class="fas fa-download"></i>
+                                        ذخیره تصویر
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- تب ۲: درخت جستجو -->
+                        <div class="viz-pane" id="tree-viz">
+                            <div class="tree-container" id="tree-container">
+                                <div class="text-center p-5">
+                                    <i class="fas fa-project-diagram" style="font-size: 4rem; color: var(--gray-300);"></i>
+                                    <p class="mt-3">درخت جستجو در اینجا نمایش داده می‌شود</p>
+                                    <p class="text-sm mt-2">(این بخش در حال توسعه است)</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- تب ۳: کد الگوریتم -->
+                        <div class="viz-pane" id="code-viz">
+                            <div class="code-preview-container">
+                                <div class="code-header">
+                                    <h4>کد الگوریتم <span id="current-algorithm-name">Backtracking</span></h4>
+                                    <button id="copy-code-btn" class="btn btn-sm">
+                                        <i class="fas fa-copy"></i>
+                                        کپی کد
+                                    </button>
+                                </div>
+                                <div class="code-editor">
+                                    <div class="code-content" id="algorithm-code">
+                                        <div class="code-line">// کد الگوریتم در اینجا نمایش داده می‌شود</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- تب ۴: نمودار -->
+                        <div class="viz-pane" id="chart-viz">
+                            <div class="tree-container">
+                                <div class="text-center p-5">
+                                    <i class="fas fa-chart-line" style="font-size: 4rem; color: var(--gray-300);"></i>
+                                    <p class="mt-3">نمودارهای تحلیل در اینجا نمایش داده می‌شوند</p>
+                                    <p class="text-sm mt-2">(این بخش در حال توسعه است)</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -636,8 +1582,8 @@
         
         <!-- صفحه منابع -->
         <section id="resources-page" class="page">
-            <h1 class="text-center">منابع و مراجع</h1>
-            <div class="resources-container mt-3">
+            <h1 class="text-center mb-5">منابع و مراجع آموزشی</h1>
+            <div class="resources-grid" id="resources-grid">
                 <!-- منابع با JS پر می‌شوند -->
             </div>
         </section>
@@ -646,14 +1592,29 @@
     
     <!-- فوتر -->
     <footer id="main-footer">
-        <div class="container footer-content">
-            <p>© ۱۴۰۳ - پروژه آموزشی هوش مصنوعی</p>
-            <p class="mt-1">طراحی شده با ❤️ برای جامعه فارسی‌زبان</p>
-            <p class="mt-1" style="font-size: 0.875rem; opacity: 0.7;">
-                این پروژه کاملاً رایگان و متن‌باز است
-            </p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo text-center mb-3">
+                    <span class="logo-icon">🧠</span>
+                    <span style="color: white; font-size: 1.25rem;">آموزش هوش مصنوعی</span>
+                </div>
+                <p>© ۱۴۰۳ - پروژه آموزشی هوش مصنوعی - نسخه ۱.۰.۰</p>
+                <p class="mt-2">طراحی شده با ❤️ برای جامعه فارسی‌زبان</p>
+                <div class="footer-links mt-4">
+                    <a href="#home">خانه</a>
+                    <a href="#learn">آموزش</a>
+                    <a href="#lab">آزمایشگاه</a>
+                    <a href="#resources">منابع</a>
+                </div>
+                <p class="mt-4" style="font-size: 0.875rem; opacity: 0.7;">
+                    این پروژه کاملاً رایگان و متن‌باز است. برای استفاده‌های آموزشی طراحی شده است.
+                </p>
+            </div>
         </div>
     </footer>
+    
+    <!-- نوتفیکیشن -->
+    <div id="notification-container"></div>
     
     <!-- ==================== HTML END ==================== -->
     
@@ -663,26 +1624,52 @@
         const CONFIG = {
             appName: "آموزش هوش مصنوعی",
             version: "1.0.0",
+            author: "تیم آموزشی",
             defaultLevel: "intermediate",
             defaultAlgorithm: "backtracking",
             maxBoardSize: 12,
             minBoardSize: 4,
+            defaultBoardSize: 8,
             animationSpeed: 1,
-            theme: "light"
+            theme: "light",
+            storageKey: "ai-edu-platform"
         };
         
         // ==================== بخش ۲: مدیریت وضعیت برنامه ====================
         const AppState = {
+            // وضعیت فعلی
             currentPage: "home",
             userLevel: CONFIG.defaultLevel,
             currentAlgorithm: CONFIG.defaultAlgorithm,
-            boardSize: 8,
+            boardSize: CONFIG.defaultBoardSize,
+            animationSpeed: CONFIG.animationSpeed,
+            
+            // وضعیت اجرا
             isRunning: false,
+            isPaused: false,
+            currentStep: 0,
             solutions: [],
             checkedNodes: 0,
             startTime: null,
+            executionStats: {
+                nodesChecked: 0,
+                solutionsFound: 0,
+                executionTime: 0,
+                searchDepth: 0,
+                branchingFactor: 0
+            },
             
-            // توابع دسترسی
+            // تنظیمات نمایش
+            showAnimation: true,
+            showConflicts: true,
+            showStats: true,
+            
+            // توابع مدیریت وضعیت
+            init() {
+                this.loadFromStorage();
+                this.updateUI();
+            },
+            
             setPage(page) {
                 this.currentPage = page;
                 this.saveToStorage();
@@ -695,15 +1682,91 @@
                 this.updateCodePreview();
             },
             
+            setBoardSize(size) {
+                this.boardSize = size;
+                this.saveToStorage();
+                Utils.createChessboard(size);
+            },
+            
+            startExecution() {
+                this.isRunning = true;
+                this.isPaused = false;
+                this.currentStep = 0;
+                this.solutions = [];
+                this.checkedNodes = 0;
+                this.startTime = Date.now();
+                this.executionStats = {
+                    nodesChecked: 0,
+                    solutionsFound: 0,
+                    executionTime: 0,
+                    searchDepth: 0,
+                    branchingFactor: 0
+                };
+            },
+            
+            pauseExecution() {
+                this.isPaused = true;
+                if (this.startTime) {
+                    this.executionStats.executionTime = Date.now() - this.startTime;
+                }
+            },
+            
+            resumeExecution() {
+                this.isPaused = false;
+                if (this.startTime) {
+                    this.startTime = Date.now() - this.executionStats.executionTime;
+                }
+            },
+            
+            stopExecution() {
+                this.isRunning = false;
+                this.isPaused = false;
+                if (this.startTime) {
+                    this.executionStats.executionTime = Date.now() - this.startTime;
+                }
+            },
+            
+            updateStats(nodes, solutions) {
+                this.checkedNodes = nodes;
+                this.solutions = solutions;
+                this.executionStats.nodesChecked = nodes;
+                this.executionStats.solutionsFound = solutions.length;
+                this.executionStats.searchDepth = this.boardSize;
+                
+                if (nodes > 0 && this.boardSize > 0) {
+                    this.executionStats.branchingFactor = (nodes / this.boardSize).toFixed(2);
+                }
+                
+                this.updateStatsDisplay();
+            },
+            
+            updateStatsDisplay() {
+                document.getElementById('nodes-checked').textContent = 
+                    this.executionStats.nodesChecked.toLocaleString();
+                document.getElementById('solutions-found').textContent = 
+                    this.executionStats.solutionsFound.toLocaleString();
+                document.getElementById('execution-time').textContent = 
+                    `${this.executionStats.executionTime}ms`;
+                document.getElementById('search-depth').textContent = 
+                    this.executionStats.searchDepth;
+                document.getElementById('branching-factor').textContent = 
+                    this.executionStats.branchingFactor;
+            },
+            
             saveToStorage() {
                 try {
                     const state = {
                         currentPage: this.currentPage,
                         userLevel: this.userLevel,
                         currentAlgorithm: this.currentAlgorithm,
-                        boardSize: this.boardSize
+                        boardSize: this.boardSize,
+                        animationSpeed: this.animationSpeed,
+                        theme: CONFIG.theme,
+                        showAnimation: this.showAnimation,
+                        showConflicts: this.showConflicts,
+                        showStats: this.showStats
                     };
-                    localStorage.setItem('ai-edu-state', JSON.stringify(state));
+                    localStorage.setItem(CONFIG.storageKey, JSON.stringify(state));
                 } catch (e) {
                     console.warn("ذخیره‌سازی با خطا مواجه شد:", e);
                 }
@@ -711,10 +1774,12 @@
             
             loadFromStorage() {
                 try {
-                    const saved = localStorage.getItem('ai-edu-state');
+                    const saved = localStorage.getItem(CONFIG.storageKey);
                     if (saved) {
                         const state = JSON.parse(saved);
                         Object.assign(this, state);
+                        CONFIG.theme = state.theme || "light";
+                        CONFIG.animationSpeed = state.animationSpeed || 1;
                     }
                 } catch (e) {
                     console.warn("بارگذاری با خطا مواجه شد:", e);
@@ -722,11 +1787,11 @@
             },
             
             updateUI() {
-                // با JS پر می‌شود
+                // این تابع بعداً کامل می‌شود
             },
             
             updateCodePreview() {
-                // با JS پر می‌شود
+                Utils.showAlgorithmCode(this.currentAlgorithm);
             }
         };
         
@@ -735,19 +1800,32 @@
             levels: {
                 beginner: {
                     name: "مبتدی",
-                    description: "آشنایی با مفاهیم پایه هوش مصنوعی",
+                    description: "آشنایی با مفاهیم پایه هوش مصنوعی و مسئله ۸ وزیر",
                     color: "#10B981",
+                    icon: "👶",
                     lessons: [
                         {
                             id: "1.1",
                             title: "هوش مصنوعی چیست؟",
-                            duration: "10 دقیقه",
-                            completed: false
+                            description: "تعاریف، تاریخچه و کاربردهای هوش مصنوعی",
+                            duration: "۱۵ دقیقه",
+                            icon: "🤖",
+                            completed: true
                         },
                         {
                             id: "1.2",
                             title: "مسئله ۸ وزیر",
-                            duration: "15 دقیقه",
+                            description: "آشنایی با مسئله کلاسیک و قوانین آن",
+                            duration: "۲۰ دقیقه",
+                            icon: "♕",
+                            completed: false
+                        },
+                        {
+                            id: "1.3",
+                            title: "مفاهیم پایه جستجو",
+                            description: "حالت، عمل، فضای حالت و درخت جستجو",
+                            duration: "۲۵ دقیقه",
+                            icon: "🔍",
                             completed: false
                         }
                     ]
@@ -755,19 +1833,32 @@
                 
                 intermediate: {
                     name: "متوسط",
-                    description: "الگوریتم‌های جستجو و تحلیل",
+                    description: "الگوریتم‌های جستجو و تحلیل پیچیدگی",
                     color: "#3B82F6",
+                    icon: "🎓",
                     lessons: [
                         {
                             id: "2.1",
                             title: "جستجوی عمق‌اول (DFS)",
-                            duration: "20 دقیقه",
+                            description: "الگوریتم DFS و پیاده‌سازی آن برای ۸ وزیر",
+                            duration: "۳۰ دقیقه",
+                            icon: "🌳",
                             completed: false
                         },
                         {
                             id: "2.2",
                             title: "جستجوی سطح‌اول (BFS)",
-                            duration: "20 دقیقه",
+                            description: "الگوریتم BFS و مقایسه با DFS",
+                            duration: "۲۵ دقیقه",
+                            icon: "📊",
+                            completed: false
+                        },
+                        {
+                            id: "2.3",
+                            title: "الگوریتم عقب‌گرد",
+                            description: "Backtracking و بهینه‌سازی‌های آن",
+                            duration: "۳۵ دقیقه",
+                            icon: "↩️",
                             completed: false
                         }
                     ]
@@ -777,17 +1868,30 @@
                     name: "پیشرفته",
                     description: "الگوریتم‌های پیشرفته و بهینه‌سازی",
                     color: "#8B5CF6",
+                    icon: "🚀",
                     lessons: [
                         {
                             id: "3.1",
-                            title: "الگوریتم A*",
-                            duration: "30 دقیقه",
+                            title: "جستجوی هیوریستیک",
+                            description: "هیوریستیک‌ها و الگوریتم A*",
+                            duration: "۴۰ دقیقه",
+                            icon: "⭐",
                             completed: false
                         },
                         {
                             id: "3.2",
                             title: "الگوریتم ژنتیک",
-                            duration: "25 دقیقه",
+                            description: "پیاده‌سازی الگوریتم ژنتیک برای ۸ وزیر",
+                            duration: "۴۵ دقیقه",
+                            icon: "🧬",
+                            completed: false
+                        },
+                        {
+                            id: "3.3",
+                            title: "تحلیل پیچیدگی",
+                            description: "تحلیل زمانی و فضایی الگوریتم‌ها",
+                            duration: "۳۰ دقیقه",
+                            icon: "📈",
                             completed: false
                         }
                     ]
@@ -798,35 +1902,67 @@
                 {
                     icon: "🎯",
                     title: "آموزش گام‌به‌گام",
-                    description: "از مفاهیم پایه تا پیشرفته"
+                    description: "از مفاهیم پایه تا پیشرفته با درس‌های طبقه‌بندی شده"
                 },
                 {
                     icon: "🔬",
                     title: "آزمایشگاه تعاملی",
-                    description: "اجرای الگوریتم‌ها با تجسم زنده"
+                    description: "اجرای الگوریتم‌ها با تجسم زنده و کنترل کامل"
                 },
                 {
                     icon: "📊",
                     title: "تحلیل و مقایسه",
-                    description: "مقایسه کارایی الگوریتم‌های مختلف"
+                    description: "مقایسه کارایی الگوریتم‌های مختلف با نمودارهای تعاملی"
                 },
                 {
                     icon: "💻",
                     title: "کدنویسی تعاملی",
-                    description: "ویرایش و اجرای کد به صورت زنده"
+                    description: "ویرایش و اجرای کد به صورت زنده در مرورگر"
+                },
+                {
+                    icon: "🎮",
+                    title: "تمرین‌های عملی",
+                    description: "تمرین‌های تعاملی برای تثبیت یادگیری"
+                },
+                {
+                    icon: "📚",
+                    title: "منابع غنی",
+                    description: "دسترسی به کتاب‌ها و منابع معتبر آموزشی"
                 }
             ],
             
             resources: [
                 {
                     title: "هوش مصنوعی: یک رویکرد مدرن",
-                    author: "راسل و نورویگ",
-                    type: "کتاب"
+                    author: "استوارت راسل و پیتر نورویگ",
+                    description: "کتاب مرجع استاندارد هوش مصنوعی",
+                    type: "کتاب",
+                    icon: "📘",
+                    link: "#"
                 },
                 {
                     title: "مبانی هوش مصنوعی",
                     author: "دکتر احمدی",
-                    type: "کتاب فارسی"
+                    description: "کتاب فارسی جامع برای شروع یادگیری",
+                    type: "کتاب فارسی",
+                    icon: "📙",
+                    link: "#"
+                },
+                {
+                    title: "الگوریتم‌های هوش مصنوعی",
+                    author: "دکتر رضوی",
+                    description: "تمرکز بر الگوریتم‌ها و پیاده‌سازی",
+                    type: "کتاب فارسی",
+                    icon: "📗",
+                    link: "#"
+                },
+                {
+                    title: "CS50's Introduction to AI",
+                    author: "Harvard University",
+                    description: "دوره رایگان هاروارد در زمینه هوش مصنوعی",
+                    type: "دوره آنلاین",
+                    icon: "🎓",
+                    link: "#"
                 }
             ]
         };
@@ -834,15 +1970,20 @@
         // ==================== بخش ۴: الگوریتم‌های ۸ وزیر ====================
         const Algorithms = {
             backtracking: {
-                name: "Backtracking",
-                description: "الگوریتم عقب‌گرد استاندارد",
-                complexity: "O(n!)",
+                name: "Backtracking (عقب‌گرد)",
+                description: "الگوریتم استاندارد عقب‌گرد برای مسئله N-وزیر",
+                complexity: "O(N!)",
+                bestFor: "مسائل با فضای جستجوی محدود",
                 code: `function solveNQueens(n) {
     const solutions = [];
     const board = Array(n).fill(-1);
+    let nodesVisited = 0;
     
+    // تابع بررسی ایمنی
     function isSafe(row, col) {
+        nodesVisited++;
         for (let i = 0; i < col; i++) {
+            // بررسی سطر و قطر
             if (board[i] === row || 
                 Math.abs(board[i] - row) === Math.abs(i - col)) {
                 return false;
@@ -851,56 +1992,267 @@
         return true;
     }
     
+    // تابع عقب‌گرد
     function backtrack(col) {
+        // اگر همه وزیرها قرار گرفتند
         if (col === n) {
             solutions.push([...board]);
             return;
         }
         
+        // امتحان کردن تمام سطرها برای ستون جاری
         for (let row = 0; row < n; row++) {
             if (isSafe(row, col)) {
-                board[col] = row;
-                backtrack(col + 1);
-                board[col] = -1;
+                board[col] = row;  // قرار دادن وزیر
+                backtrack(col + 1); // رفتن به ستون بعدی
+                board[col] = -1;   // عقب‌گرد
             }
         }
     }
     
     backtrack(0);
-    return solutions;
+    return { solutions, nodesVisited };
 }`
             },
             
             dfs: {
-                name: "جستجوی عمق‌اول",
-                description: "DFS برای فضای حالت",
+                name: "جستجوی عمق‌اول (DFS)",
+                description: "DFS برای جستجو در فضای حالت مسئله",
                 complexity: "O(b^d)",
+                bestFor: "مسائل با عمق محدود",
                 code: `function dfsNQueens(n) {
-    const stack = [[]];
     const solutions = [];
+    const stack = [[]];
+    let nodesVisited = 0;
     
     while (stack.length > 0) {
         const state = stack.pop();
         
+        // اگر راه‌حل کامل شد
         if (state.length === n) {
-            solutions.push(state);
+            solutions.push([...state]);
             continue;
         }
         
         const col = state.length;
         for (let row = 0; row < n; row++) {
-            if (isValid(state, row, col)) {
+            nodesVisited++;
+            let valid = true;
+            
+            // بررسی برخورد
+            for (let i = 0; i < col; i++) {
+                if (state[i] === row || 
+                    Math.abs(state[i] - row) === Math.abs(i - col)) {
+                    valid = false;
+                    break;
+                }
+            }
+            
+            if (valid) {
                 stack.push([...state, row]);
             }
         }
     }
     
-    return solutions;
+    return { solutions, nodesVisited };
+}`
+            },
+            
+            bfs: {
+                name: "جستجوی سطح‌اول (BFS)",
+                description: "BFS برای جستجو در فضای حالت",
+                complexity: "O(b^d)",
+                bestFor: "یافتن کوتاه‌ترین مسیر",
+                code: `function bfsNQueens(n) {
+    const solutions = [];
+    const queue = [[]];
+    let nodesVisited = 0;
+    
+    while (queue.length > 0) {
+        const state = queue.shift();
+        
+        if (state.length === n) {
+            solutions.push([...state]);
+            continue;
+        }
+        
+        const col = state.length;
+        for (let row = 0; row < n; row++) {
+            nodesVisited++;
+            let valid = true;
+            
+            for (let i = 0; i < col; i++) {
+                if (state[i] === row || 
+                    Math.abs(state[i] - row) === Math.abs(i - col)) {
+                    valid = false;
+                    break;
+                }
+            }
+            
+            if (valid) {
+                queue.push([...state, row]);
+            }
+        }
+    }
+    
+    return { solutions, nodesVisited };
+}`
+            },
+            
+            heuristic: {
+                name: "جستجوی هیوریستیک",
+                description: "استفاده از هیوریستیک برای هدایت جستجو",
+                complexity: "O(n²)",
+                bestFor: "مسائل بزرگ با هیوریستیک خوب",
+                code: `function heuristicNQueens(n) {
+    const solutions = [];
+    let nodesVisited = 0;
+    
+    // هیوریستیک: تعداد وزیرهای در حال تهدید
+    function heuristic(board) {
+        let conflicts = 0;
+        for (let i = 0; i < board.length; i++) {
+            for (let j = i + 1; j < board.length; j++) {
+                if (board[i] === board[j] || 
+                    Math.abs(board[i] - board[j]) === Math.abs(i - j)) {
+                    conflicts++;
+                }
+            }
+        }
+        return conflicts;
+    }
+    
+    // جستجوی محلی با هیوریستیک
+    function localSearch() {
+        let current = Array(n).fill(0).map((_, i) => i);
+        // ...
+    }
+    
+    // [پیاده‌سازی کامل در نسخه بعدی]
+    return { solutions, nodesVisited };
 }`
             }
         };
         
-        // ==================== بخش ۵: توابع کمکی ====================
+        // ==================== بخش ۵: پیاده‌سازی الگوریتم‌ها ====================
+        const AlgorithmImplementations = {
+            backtracking: function(n) {
+                const solutions = [];
+                const board = Array(n).fill(-1);
+                let nodesVisited = 0;
+                
+                function isSafe(row, col) {
+                    nodesVisited++;
+                    for (let i = 0; i < col; i++) {
+                        if (board[i] === row || 
+                            Math.abs(board[i] - row) === Math.abs(i - col)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                
+                function backtrack(col) {
+                    if (col === n) {
+                        solutions.push([...board]);
+                        return;
+                    }
+                    
+                    for (let row = 0; row < n; row++) {
+                        if (isSafe(row, col)) {
+                            board[col] = row;
+                            backtrack(col + 1);
+                            board[col] = -1;
+                        }
+                    }
+                }
+                
+                backtrack(0);
+                return { solutions, nodesVisited };
+            },
+            
+            dfs: function(n) {
+                const solutions = [];
+                const stack = [[]];
+                let nodesVisited = 0;
+                
+                while (stack.length > 0) {
+                    const state = stack.pop();
+                    
+                    if (state.length === n) {
+                        solutions.push([...state]);
+                        continue;
+                    }
+                    
+                    const col = state.length;
+                    for (let row = 0; row < n; row++) {
+                        nodesVisited++;
+                        let valid = true;
+                        
+                        for (let i = 0; i < col; i++) {
+                            if (state[i] === row || 
+                                Math.abs(state[i] - row) === Math.abs(i - col)) {
+                                valid = false;
+                                break;
+                            }
+                        }
+                        
+                        if (valid) {
+                            stack.push([...state, row]);
+                        }
+                    }
+                }
+                
+                return { solutions, nodesVisited };
+            },
+            
+            bfs: function(n) {
+                const solutions = [];
+                const queue = [[]];
+                let nodesVisited = 0;
+                
+                while (queue.length > 0) {
+                    const state = queue.shift();
+                    
+                    if (state.length === n) {
+                        solutions.push([...state]);
+                        continue;
+                    }
+                    
+                    const col = state.length;
+                    for (let row = 0; row < n; row++) {
+                        nodesVisited++;
+                        let valid = true;
+                        
+                        for (let i = 0; i < col; i++) {
+                            if (state[i] === row || 
+                                Math.abs(state[i] - row) === Math.abs(i - col)) {
+                                valid = false;
+                                break;
+                            }
+                        }
+                        
+                        if (valid) {
+                            queue.push([...state, row]);
+                        }
+                    }
+                }
+                
+                return { solutions, nodesVisited };
+            },
+            
+            heuristic: function(n) {
+                // پیاده‌سازی ساده‌شده
+                const solutions = [];
+                let nodesVisited = 0;
+                
+                // استفاده از الگوریتم عقب‌گرد برای نسخه فعلی
+                const result = this.backtracking(n);
+                return result;
+            }
+        };
+        
+        // ==================== بخش ۶: توابع کمکی ====================
         const Utils = {
             // تغییر صفحه
             switchPage(pageId) {
@@ -923,17 +2275,24 @@
                         link.classList.add('active');
                     }
                 });
+                
+                // بستن منوی موبایل
+                document.getElementById('main-nav').classList.remove('active');
+                
+                // اسکرول به بالا
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             },
             
             // ایجاد شطرنج
             createChessboard(size) {
-                const container = document.getElementById('chessboard-container');
+                const container = document.getElementById('chessboard');
                 if (!container) return;
                 
                 container.innerHTML = '';
-                const board = document.createElement('div');
-                board.className = 'chessboard';
-                board.id = 'chessboard';
+                container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+                container.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+                container.style.width = `min(500px, 70vh)`;
+                container.style.height = `min(500px, 70vh)`;
                 
                 for (let row = 0; row < size; row++) {
                     for (let col = 0; col < size; col++) {
@@ -941,11 +2300,10 @@
                         cell.className = `chess-cell ${(row + col) % 2 === 0 ? 'white' : 'black'}`;
                         cell.dataset.row = row;
                         cell.dataset.col = col;
-                        board.appendChild(cell);
+                        cell.dataset.index = row * size + col;
+                        container.appendChild(cell);
                     }
                 }
-                
-                container.appendChild(board);
             },
             
             // نمایش کد الگوریتم
@@ -954,112 +2312,256 @@
                 if (!algo) return;
                 
                 const codeElement = document.getElementById('algorithm-code');
+                const algoNameElement = document.getElementById('current-algorithm-name');
+                
                 if (codeElement) {
-                    codeElement.textContent = algo.code;
+                    // تقسیم کد به خطوط
+                    const lines = algo.code.split('\n');
+                    let html = '';
+                    
+                    lines.forEach((line, index) => {
+                        const lineNumber = index + 1;
+                        html += `<div class="code-line" data-line="${lineNumber}">${this.escapeHtml(line)}</div>`;
+                    });
+                    
+                    codeElement.innerHTML = html;
+                }
+                
+                if (algoNameElement) {
+                    algoNameElement.textContent = algo.name;
                 }
             },
             
-            // شروع اجرای الگوریتم
-            startAlgorithm() {
+            // فرار از HTML
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            },
+            
+            // اجرای الگوریتم
+            runAlgorithm() {
                 if (AppState.isRunning) return;
                 
-                AppState.isRunning = true;
-                AppState.checkedNodes = 0;
-                AppState.startTime = Date.now();
-                AppState.solutions = [];
+                AppState.startExecution();
                 
-                // آپدیت دکمه
-                const startBtn = document.getElementById('start-btn');
-                if (startBtn) {
-                    startBtn.innerHTML = '<i class="fas fa-pause"></i> مکث';
-                    startBtn.classList.add('btn-danger');
-                }
+                const size = AppState.boardSize;
+                const algorithm = AppState.currentAlgorithm;
                 
-                // اجرای الگوریتم انتخابی
-                this.runSelectedAlgorithm();
-            },
-            
-            runSelectedAlgorithm() {
-                // پیاده‌سازی الگوریتم‌ها
-                // اینجا بعداً کامل می‌شود
+                // آپدیت UI
+                document.getElementById('start-btn').innerHTML = '<i class="fas fa-pause"></i> مکث';
+                document.getElementById('start-btn').classList.add('btn-danger');
+                document.getElementById('pause-btn').disabled = true;
+                document.getElementById('step-btn').disabled = true;
                 
-                // برای نمایش اولیه
+                // پاک کردن صفحه
+                this.clearChessboard();
+                
+                // اجرای الگوریتم
                 setTimeout(() => {
-                    this.stopAlgorithm();
-                    this.showSampleSolution();
-                }, 2000);
-            },
-            
-            stopAlgorithm() {
-                AppState.isRunning = false;
-                
-                const startBtn = document.getElementById('start-btn');
-                if (startBtn) {
-                    startBtn.innerHTML = '<i class="fas fa-play"></i> شروع اجرا';
-                    startBtn.classList.remove('btn-danger');
-                }
-                
-                // محاسبه زمان
-                if (AppState.startTime) {
-                    const elapsed = Date.now() - AppState.startTime;
-                    const timeElement = document.getElementById('execution-time');
-                    if (timeElement) {
-                        timeElement.textContent = `${elapsed}ms`;
+                    try {
+                        const result = AlgorithmImplementations[algorithm](size);
+                        
+                        // آپدیت آمار
+                        AppState.updateStats(result.nodesVisited, result.solutions);
+                        
+                        // نمایش اولین راه‌حل
+                        if (result.solutions.length > 0) {
+                            this.displaySolution(result.solutions[0]);
+                        }
+                        
+                        // نمایش نوتیفیکیشن
+                        this.showNotification(
+                            'success',
+                            'اجرا کامل شد!',
+                            `${result.solutions.length} راه‌حل پیدا شد. ${result.nodesVisited.toLocaleString()} گره بررسی شد.`
+                        );
+                        
+                    } catch (error) {
+                        console.error('خطا در اجرای الگوریتم:', error);
+                        this.showNotification(
+                            'error',
+                            'خطا در اجرا',
+                            'در اجرای الگوریتم مشکلی پیش آمد.'
+                        );
+                    } finally {
+                        AppState.stopExecution();
+                        this.resetExecutionButtons();
                     }
-                }
+                }, 500);
             },
             
-            showSampleSolution() {
-                // نمایش یک راه‌حل نمونه
+            // نمایش راه‌حل روی شطرنج
+            displaySolution(solution) {
                 const board = document.getElementById('chessboard');
-                if (!board) return;
+                if (!board || !solution) return;
                 
                 const cells = board.querySelectorAll('.chess-cell');
-                const size = AppState.boardSize;
-                const sampleSolution = [0, 4, 7, 5, 2, 6, 1, 3];
+                const size = solution.length;
+                const delay = AppState.showAnimation ? 300 : 0;
                 
                 cells.forEach(cell => {
-                    const row = parseInt(cell.dataset.row);
-                    const col = parseInt(cell.dataset.col);
-                    
-                    if (col < sampleSolution.length && sampleSolution[col] === row) {
-                        cell.innerHTML = '♕';
-                    }
+                    cell.innerHTML = '';
+                    cell.classList.remove('queen', 'highlight', 'conflict');
                 });
                 
-                // آپدیت آمار
-                const solutionsElement = document.getElementById('solutions-found');
-                if (solutionsElement) {
-                    solutionsElement.textContent = '1';
-                }
+                // نمایش وزیرها با انیمیشن
+                solution.forEach((row, col) => {
+                    setTimeout(() => {
+                        const cellIndex = row * size + col;
+                        const cell = cells[cellIndex];
+                        if (cell) {
+                            cell.innerHTML = '♕';
+                            cell.classList.add('queen');
+                            
+                            if (AppState.showAnimation) {
+                                cell.style.animation = 'placeQueen 0.5s ease';
+                                setTimeout(() => {
+                                    cell.style.animation = '';
+                                }, 500);
+                            }
+                        }
+                    }, col * delay);
+                });
+            },
+            
+            // پاک کردن شطرنج
+            clearChessboard() {
+                const cells = document.querySelectorAll('.chess-cell');
+                cells.forEach(cell => {
+                    cell.innerHTML = '';
+                    cell.classList.remove('queen', 'highlight', 'conflict');
+                });
+                
+                // ریست آمار
+                document.getElementById('nodes-checked').textContent = '0';
+                document.getElementById('solutions-found').textContent = '0';
+                document.getElementById('execution-time').textContent = '0ms';
+                document.getElementById('search-depth').textContent = '0';
+                document.getElementById('branching-factor').textContent = '0.00';
+            },
+            
+            // ریست دکمه‌های اجرا
+            resetExecutionButtons() {
+                document.getElementById('start-btn').innerHTML = '<i class="fas fa-play"></i> شروع اجرا';
+                document.getElementById('start-btn').classList.remove('btn-danger');
+                document.getElementById('pause-btn').disabled = false;
+                document.getElementById('step-btn').disabled = false;
+                document.getElementById('pause-btn').innerHTML = '<i class="fas fa-pause"></i> مکث';
+            },
+            
+            // نمایش نوتیفیکیشن
+            showNotification(type, title, message) {
+                const container = document.getElementById('notification-container');
+                if (!container) return;
+                
+                const icons = {
+                    success: '✅',
+                    error: '❌',
+                    warning: '⚠️',
+                    info: 'ℹ️'
+                };
+                
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <div class="notification-icon">${icons[type]}</div>
+                    <div>
+                        <strong>${title}</strong>
+                        <p style="margin-top: 0.25rem; font-size: 0.9rem;">${message}</p>
+                    </div>
+                    <button class="notification-close">&times;</button>
+                `;
+                
+                container.appendChild(notification);
+                
+                // حذف خودکار بعد از 5 ثانیه
+                setTimeout(() => {
+                    notification.remove();
+                }, 5000);
+                
+                // حذف با کلیک
+                notification.querySelector('.notification-close').addEventListener('click', () => {
+                    notification.remove();
+                });
+            },
+            
+            // کپی کد
+            copyCodeToClipboard() {
+                const codeElement = document.getElementById('algorithm-code');
+                if (!codeElement) return;
+                
+                const code = codeElement.textContent;
+                navigator.clipboard.writeText(code)
+                    .then(() => {
+                        this.showNotification('success', 'کپی شد!', 'کد الگوریتم با موفقیت کپی شد.');
+                    })
+                    .catch(err => {
+                        console.error('خطا در کپی:', err);
+                        this.showNotification('error', 'خطا', 'کپی کد انجام نشد.');
+                    });
+            },
+            
+            // بارگذاری صفحه خانه
+            loadHomePage() {
+                const container = document.getElementById('features-grid');
+                if (!container) return;
+                
+                let html = '';
+                Curriculum.features.forEach(feature => {
+                    html += `
+                        <div class="card feature-card">
+                            <div class="feature-icon" style="font-size: 3rem;">
+                                ${feature.icon}
+                            </div>
+                            <h3>${feature.title}</h3>
+                            <p>${feature.description}</p>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
             },
             
             // بارگذاری صفحه آموزش
-            loadLearningPage() {
-                const container = document.querySelector('.levels-container');
+            loadLearnPage() {
+                const container = document.getElementById('levels-container');
                 if (!container) return;
                 
                 let html = '';
                 for (const [levelKey, levelData] of Object.entries(Curriculum.levels)) {
                     html += `
                         <div class="level-card card level-${levelKey}">
-                            <h3>
-                                <span style="color: ${levelData.color}">●</span>
-                                ${levelData.name}
-                            </h3>
-                            <p>${levelData.description}</p>
+                            <div class="level-header">
+                                <span style="font-size: 2rem;">${levelData.icon}</span>
+                                <div style="flex: 1;">
+                                    <h2 style="color: ${levelData.color}; margin-bottom: 0.25rem;">
+                                        ${levelData.name}
+                                    </h2>
+                                    <p style="color: var(--gray-600);">${levelData.description}</p>
+                                </div>
+                                <span class="level-badge">${levelData.lessons.length} درس</span>
+                            </div>
                             <div class="lessons-grid">
                     `;
                     
-                    levelData.lessons.forEach(lesson => {
+                    levelData.lessons.forEach((lesson, index) => {
                         html += `
                             <div class="lesson-card card">
-                                <span class="lesson-badge">${lesson.id}</span>
+                                <div class="lesson-number">${lesson.id}</div>
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">
+                                    ${lesson.icon}
+                                </div>
                                 <h4>${lesson.title}</h4>
-                                <p>⏱️ ${lesson.duration}</p>
-                                <button class="btn btn-primary mt-2" style="width: 100%;">
-                                    شروع درس
-                                </button>
+                                <p style="color: var(--gray-600); font-size: 0.95rem;">
+                                    ${lesson.description}
+                                </p>
+                                <div class="lesson-meta">
+                                    <span>⏱️ ${lesson.duration}</span>
+                                    <button class="btn btn-sm btn-primary" data-lesson="${lesson.id}">
+                                        ${lesson.completed ? 'مشاهده' : 'شروع'}
+                                    </button>
+                                </div>
                             </div>
                         `;
                     });
@@ -1073,51 +2575,58 @@
                 container.innerHTML = html;
             },
             
-            // بارگذاری ویژگی‌ها
-            loadFeatures() {
-                const container = document.querySelector('.features-grid');
-                if (!container) return;
-                
-                let html = '';
-                Curriculum.features.forEach(feature => {
-                    html += `
-                        <div class="card text-center">
-                            <div style="font-size: 2.5rem; margin-bottom: 1rem;">
-                                ${feature.icon}
-                            </div>
-                            <h3>${feature.title}</h3>
-                            <p>${feature.description}</p>
-                        </div>
-                    `;
-                });
-                
-                container.innerHTML = html;
-                container.style.display = 'grid';
-                container.style.gridTemplateColumns = 'repeat(auto-fit, minmax(250px, 1fr))';
-                container.style.gap = '1.5rem';
-            },
-            
-            // بارگذاری منابع
-            loadResources() {
-                const container = document.querySelector('.resources-container');
+            // بارگذاری صفحه منابع
+            loadResourcesPage() {
+                const container = document.getElementById('resources-grid');
                 if (!container) return;
                 
                 let html = '';
                 Curriculum.resources.forEach(resource => {
                     html += `
-                        <div class="card">
-                            <h3>${resource.title}</h3>
-                            <p><strong>نویسنده:</strong> ${resource.author}</p>
-                            <p><strong>نوع:</strong> ${resource.type}</p>
+                        <div class="resource-card card">
+                            <div class="resource-icon">
+                                ${resource.icon}
+                            </div>
+                            <div style="flex: 1;">
+                                <h3>${resource.title}</h3>
+                                <p style="color: var(--gray-600); margin-bottom: 0.5rem;">
+                                    <strong>نویسنده:</strong> ${resource.author}
+                                </p>
+                                <p style="color: var(--gray-600); font-size: 0.95rem;">
+                                    ${resource.description}
+                                </p>
+                                <div class="mt-3">
+                                    <span class="badge" style="background: var(--gray-100); padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.875rem;">
+                                        ${resource.type}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     `;
                 });
                 
                 container.innerHTML = html;
+            },
+            
+            // تغییر تب‌های تجسم
+            switchVizTab(tabId) {
+                document.querySelectorAll('.viz-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                document.querySelectorAll('.viz-pane').forEach(pane => {
+                    pane.classList.remove('active');
+                });
+                
+                const activeTab = document.querySelector(`[data-viz="${tabId}"]`);
+                const activePane = document.getElementById(`${tabId}-viz`);
+                
+                if (activeTab) activeTab.classList.add('active');
+                if (activePane) activePane.classList.add('active');
             }
         };
         
-        // ==================== بخش ۶: مدیریت رویدادها ====================
+        // ==================== بخش ۷: مدیریت رویدادها ====================
         const EventHandlers = {
             init() {
                 // رویداد تغییر صفحه
@@ -1129,24 +2638,23 @@
                     });
                 });
                 
+                // منوی موبایل
+                document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                    document.getElementById('main-nav').classList.toggle('active');
+                });
+                
                 // دکمه شروع یادگیری
-                const startLearningBtn = document.getElementById('start-learning');
-                if (startLearningBtn) {
-                    startLearningBtn.addEventListener('click', () => {
-                        Utils.switchPage('learn');
-                    });
-                }
+                document.getElementById('start-learning').addEventListener('click', () => {
+                    Utils.switchPage('learn');
+                });
                 
                 // دکمه مشاهده دمو
-                const viewDemoBtn = document.getElementById('view-demo');
-                if (viewDemoBtn) {
-                    viewDemoBtn.addEventListener('click', () => {
-                        Utils.switchPage('lab');
-                        setTimeout(() => {
-                            Utils.startAlgorithm();
-                        }, 500);
-                    });
-                }
+                document.getElementById('view-demo').addEventListener('click', () => {
+                    Utils.switchPage('lab');
+                    setTimeout(() => {
+                        Utils.runAlgorithm();
+                    }, 1000);
+                });
                 
                 // تغییر اندازه صفحه
                 const boardSizeInput = document.getElementById('board-size');
@@ -1156,8 +2664,7 @@
                     boardSizeInput.addEventListener('input', (e) => {
                         const size = parseInt(e.target.value);
                         boardSizeValue.textContent = size;
-                        AppState.boardSize = size;
-                        Utils.createChessboard(size);
+                        AppState.setBoardSize(size);
                     });
                 }
                 
@@ -1171,115 +2678,231 @@
                 }
                 
                 // دکمه شروع اجرا
-                const startBtn = document.getElementById('start-btn');
-                if (startBtn) {
-                    startBtn.addEventListener('click', () => {
-                        if (AppState.isRunning) {
-                            Utils.stopAlgorithm();
-                        } else {
-                            Utils.startAlgorithm();
-                        }
-                    });
-                }
+                document.getElementById('start-btn').addEventListener('click', () => {
+                    if (AppState.isRunning) {
+                        AppState.pauseExecution();
+                        document.getElementById('start-btn').innerHTML = '<i class="fas fa-play"></i> ادامه';
+                        document.getElementById('start-btn').classList.remove('btn-danger');
+                    } else {
+                        Utils.runAlgorithm();
+                    }
+                });
+                
+                // دکمه قدم بعدی
+                document.getElementById('step-btn').addEventListener('click', () => {
+                    // پیاده‌سازی در نسخه‌های بعدی
+                    Utils.showNotification('info', 'در حال توسعه', 'قابلیت قدم‌به‌قدم در حال توسعه است.');
+                });
+                
+                // دکمه مکث
+                document.getElementById('pause-btn').addEventListener('click', () => {
+                    if (AppState.isRunning && !AppState.isPaused) {
+                        AppState.pauseExecution();
+                        document.getElementById('pause-btn').innerHTML = '<i class="fas fa-play"></i> ادامه';
+                        Utils.showNotification('info', 'مکث', 'اجرا متوقف شد.');
+                    } else if (AppState.isRunning && AppState.isPaused) {
+                        AppState.resumeExecution();
+                        document.getElementById('pause-btn').innerHTML = '<i class="fas fa-pause"></i> مکث';
+                        Utils.showNotification('info', 'ادامه', 'اجرا ادامه پیدا کرد.');
+                    }
+                });
                 
                 // دکمه ریست
-                const resetBtn = document.getElementById('reset-btn');
-                if (resetBtn) {
-                    resetBtn.addEventListener('click', () => {
-                        Utils.stopAlgorithm();
-                        Utils.createChessboard(AppState.boardSize);
-                        
-                        // ریست آمار
-                        document.getElementById('nodes-checked').textContent = '0';
-                        document.getElementById('execution-time').textContent = '0ms';
-                        document.getElementById('solutions-found').textContent = '0';
-                    });
-                }
+                document.getElementById('reset-btn').addEventListener('click', () => {
+                    AppState.stopExecution();
+                    Utils.clearChessboard();
+                    Utils.resetExecutionButtons();
+                });
+                
+                // دکمه نمایش راه‌حل
+                document.getElementById('show-solution-btn').addEventListener('click', () => {
+                    if (AppState.solutions.length > 0) {
+                        const randomIndex = Math.floor(Math.random() * AppState.solutions.length);
+                        Utils.displaySolution(AppState.solutions[randomIndex]);
+                        Utils.showNotification('info', 'نمایش راه‌حل', `راه‌حل ${randomIndex + 1} از ${AppState.solutions.length} نمایش داده شد.`);
+                    } else {
+                        Utils.showNotification('warning', 'هشدار', 'هنوز هیچ راه‌حلی پیدا نشده است.');
+                    }
+                });
+                
+                // دکمه پاک کردن صفحه
+                document.getElementById('clear-board-btn').addEventListener('click', () => {
+                    Utils.clearChessboard();
+                });
+                
+                // دکمه کپی کد
+                document.getElementById('copy-code-btn').addEventListener('click', () => {
+                    Utils.copyCodeToClipboard();
+                });
                 
                 // دکمه تغییر تم
-                const themeToggle = document.getElementById('theme-toggle');
-                if (themeToggle) {
-                    themeToggle.addEventListener('click', () => {
-                        document.body.classList.toggle('dark-theme');
-                        const isDark = document.body.classList.contains('dark-theme');
-                        themeToggle.innerHTML = isDark ? 
-                            '<i class="fas fa-sun"></i>' : 
-                            '<i class="fas fa-moon"></i>';
-                        
-                        CONFIG.theme = isDark ? 'dark' : 'light';
-                        try {
-                            localStorage.setItem('ai-edu-theme', CONFIG.theme);
-                        } catch (e) {
-                            console.warn("ذخیره‌سازی تم با خطا مواجه شد:", e);
-                        }
-                    });
-                }
+                document.getElementById('theme-toggle').addEventListener('click', () => {
+                    document.body.classList.toggle('dark-theme');
+                    const isDark = document.body.classList.contains('dark-theme');
+                    const icon = document.getElementById('theme-toggle').querySelector('i');
+                    
+                    if (isDark) {
+                        icon.className = 'fas fa-sun';
+                        CONFIG.theme = 'dark';
+                        Utils.showNotification('info', 'تم تیره', 'تم تیره فعال شد.');
+                    } else {
+                        icon.className = 'fas fa-moon';
+                        CONFIG.theme = 'light';
+                        Utils.showNotification('info', 'تم روشن', 'تم روشن فعال شد.');
+                    }
+                    
+                    AppState.saveToStorage();
+                });
                 
                 // کنترل‌های سرعت
                 document.querySelectorAll('[data-speed]').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const speed = parseFloat(e.target.dataset.speed);
                         CONFIG.animationSpeed = speed;
+                        AppState.animationSpeed = speed;
                         
                         // آپدیت دکمه‌های فعال
                         document.querySelectorAll('[data-speed]').forEach(b => {
                             b.classList.remove('btn-primary');
                         });
                         e.target.classList.add('btn-primary');
+                        
+                        AppState.saveToStorage();
                     });
+                });
+                
+                // تب‌های تجسم
+                document.querySelectorAll('.viz-tab').forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        const vizId = e.target.closest('.viz-tab').getAttribute('data-viz');
+                        Utils.switchVizTab(vizId);
+                    });
+                });
+                
+                // چک‌باکس‌ها
+                document.getElementById('show-animation').addEventListener('change', (e) => {
+                    AppState.showAnimation = e.target.checked;
+                    AppState.saveToStorage();
+                });
+                
+                document.getElementById('show-conflicts').addEventListener('change', (e) => {
+                    AppState.showConflicts = e.target.checked;
+                    AppState.saveToStorage();
+                });
+                
+                document.getElementById('show-stats').addEventListener('change', (e) => {
+                    AppState.showStats = e.target.checked;
+                    AppState.saveToStorage();
+                });
+                
+                // کلیک خارج از منوی موبایل برای بستن
+                document.addEventListener('click', (e) => {
+                    const nav = document.getElementById('main-nav');
+                    const menuBtn = document.getElementById('mobile-menu-btn');
+                    
+                    if (nav.classList.contains('active') && 
+                        !nav.contains(e.target) && 
+                        !menuBtn.contains(e.target)) {
+                        nav.classList.remove('active');
+                    }
+                });
+                
+                // رویدادهای کیبورد
+                document.addEventListener('keydown', (e) => {
+                    // ESC برای بستن منو
+                    if (e.key === 'Escape') {
+                        document.getElementById('main-nav').classList.remove('active');
+                    }
+                    
+                    // Space برای شروع/توقف
+                    if (e.key === ' ' && document.activeElement.tagName !== 'INPUT') {
+                        e.preventDefault();
+                        const startBtn = document.getElementById('start-btn');
+                        if (startBtn) startBtn.click();
+                    }
                 });
             }
         };
         
-        // ==================== بخش ۷: مقداردهی اولیه ====================
+        // ==================== بخش ۸: مقداردهی اولیه ====================
         document.addEventListener('DOMContentLoaded', () => {
-            // بارگذاری وضعیت ذخیره شده
-            AppState.loadFromStorage();
+            console.log(`🚀 ${CONFIG.appName} v${CONFIG.version} در حال بارگذاری...`);
             
-            // بارگذاری تم
-            const savedTheme = localStorage.getItem('ai-edu-theme');
-            if (savedTheme === 'dark') {
+            // بارگذاری وضعیت ذخیره شده
+            AppState.init();
+            
+            // اعمال تم ذخیره شده
+            if (CONFIG.theme === 'dark') {
                 document.body.classList.add('dark-theme');
-                const themeToggle = document.getElementById('theme-toggle');
-                if (themeToggle) {
-                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                }
+                const icon = document.getElementById('theme-toggle').querySelector('i');
+                icon.className = 'fas fa-sun';
             }
             
             // مقداردهی اولیه صفحات
             Utils.switchPage(AppState.currentPage);
             Utils.createChessboard(AppState.boardSize);
             Utils.showAlgorithmCode(AppState.currentAlgorithm);
-            Utils.loadLearningPage();
-            Utils.loadFeatures();
-            Utils.loadResources();
+            
+            // بارگذاری محتوا
+            Utils.loadHomePage();
+            Utils.loadLearnPage();
+            Utils.loadResourcesPage();
+            
+            // تنظیم مقادیر اولیه UI
+            document.getElementById('board-size').value = AppState.boardSize;
+            document.getElementById('board-size-value').textContent = AppState.boardSize;
+            document.getElementById('algorithm-select').value = AppState.currentAlgorithm;
+            document.getElementById('show-animation').checked = AppState.showAnimation;
+            document.getElementById('show-conflicts').checked = AppState.showConflicts;
+            document.getElementById('show-stats').checked = AppState.showStats;
+            
+            // تنظیم دکمه سرعت فعال
+            document.querySelectorAll('[data-speed]').forEach(btn => {
+                const speed = parseFloat(btn.getAttribute('data-speed'));
+                if (speed === CONFIG.animationSpeed) {
+                    btn.classList.add('btn-primary');
+                }
+            });
             
             // تنظیم رویدادها
             EventHandlers.init();
             
-            // تنظیم مقادیر اولیه UI
-            const boardSizeInput = document.getElementById('board-size');
-            const boardSizeValue = document.getElementById('board-size-value');
-            if (boardSizeInput && boardSizeValue) {
-                boardSizeInput.value = AppState.boardSize;
-                boardSizeValue.textContent = AppState.boardSize;
-            }
+            // نمایش پیام خوش‌آمد
+            setTimeout(() => {
+                Utils.showNotification(
+                    'info',
+                    'خوش آمدید!',
+                    'به پلتفرم آموزش هوش مصنوعی خوش آمدید. برای شروع می‌توانید از صفحه آموزش یا آزمایشگاه استفاده کنید.'
+                );
+            }, 1000);
             
-            const algoSelect = document.getElementById('algorithm-select');
-            if (algoSelect) {
-                algoSelect.value = AppState.currentAlgorithm;
-            }
-            
-            console.log(`پروژه "${CONFIG.appName}" v${CONFIG.version} بارگذاری شد.`);
+            console.log(`✅ ${CONFIG.appName} با موفقیت بارگذاری شد!`);
         });
         
-        // ==================== بخش ۸: توابع قابل دسترسی از کنسول ====================
+        // ==================== بخش ۹: توابع قابل دسترسی از کنسول ====================
         window.AIEdu = {
             config: CONFIG,
             state: AppState,
             utils: Utils,
             curriculum: Curriculum,
-            algorithms: Algorithms
+            algorithms: Algorithms,
+            implementations: AlgorithmImplementations,
+            
+            // توابع کمکی برای دیباگ
+            debug: {
+                showState: () => console.log('وضعیت فعلی:', AppState),
+                showConfig: () => console.log('تنظیمات:', CONFIG),
+                resetApp: () => {
+                    localStorage.removeItem(CONFIG.storageKey);
+                    location.reload();
+                },
+                testAlgorithm: (algo, size = 8) => {
+                    console.log(`تست الگوریتم ${algo} برای N=${size}`);
+                    const result = AlgorithmImplementations[algo](size);
+                    console.log(`نتایج: ${result.solutions.length} راه‌حل، ${result.nodesVisited} گره`);
+                    return result;
+                }
+            }
         };
         
         // ==================== JAVASCRIPT END ==================== 
