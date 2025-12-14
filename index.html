@@ -29,6 +29,7 @@
             --danger-dark: #dc2626;
             --warning: #f59e0b;
             --info: #3b82f6;
+            --success: #10b981;
             
             /* رنگ‌های خنثی */
             --dark: #1f2937;
@@ -174,7 +175,7 @@
         
         /* ۴. کامپوننت‌های پایه */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 1.5rem;
             width: 100%;
@@ -275,6 +276,15 @@
             transform: none !important;
         }
         
+        .btn-icon {
+            padding: 0.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         .card {
             background: var(--light);
             border-radius: var(--radius-lg);
@@ -286,7 +296,7 @@
         }
         
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-4px);
             box-shadow: var(--shadow-xl);
             border-color: var(--primary-light);
         }
@@ -307,7 +317,7 @@
         .page {
             display: none;
             min-height: calc(100vh - var(--header-height) - var(--footer-height));
-            padding: 3rem 0;
+            padding: 2rem 0;
             animation: fadeIn 0.5s ease;
         }
         
@@ -570,62 +580,50 @@
             border-top: 1px solid var(--gray-200);
         }
         
-        /* ۱۰. آزمایشگاه */
-        .lab-header {
-            margin-bottom: 2rem;
-        }
-        
-        .lab-container {
-            display: grid;
-            grid-template-columns: 350px 1fr;
+        /* ۱۰. آزمایشگاه - طراحی جدید */
+        .lab-page-container {
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
-            height: calc(100vh - var(--header-height) - var(--footer-height) - 150px);
+            height: calc(100vh - var(--header-height) - var(--footer-height) - 4rem);
         }
         
-        .control-panel {
+        /* بخش بالایی - تنظیمات مسئله */
+        .problem-config-section {
             background: var(--light);
             border-radius: var(--radius-lg);
             padding: 1.5rem;
-            overflow-y: auto;
             box-shadow: var(--shadow-lg);
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .panel-section {
-            background: var(--gray-50);
-            border-radius: var(--radius-md);
-            padding: 1.25rem;
             border: 1px solid var(--gray-200);
         }
         
-        .panel-section h3 {
-            margin-bottom: 1rem;
-            color: var(--primary-dark);
+        .problem-config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            align-items: end;
+        }
+        
+        .config-group {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.1rem;
+            flex-direction: column;
+            gap: 0.75rem;
         }
         
-        .control-group {
-            margin-bottom: 1.25rem;
-        }
-        
-        .control-group:last-child {
-            margin-bottom: 0;
-        }
-        
-        .control-label {
-            display: block;
-            margin-bottom: 0.5rem;
+        .config-label {
             font-weight: 600;
             color: var(--dark);
             font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        .control-input {
+        .config-label i {
+            color: var(--primary);
+        }
+        
+        .config-input {
             width: 100%;
             padding: 0.75rem 1rem;
             border: 2px solid var(--gray-300);
@@ -637,13 +635,13 @@
             transition: var(--transition-fast);
         }
         
-        .control-input:focus {
+        .config-input:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px var(--primary-light);
         }
         
-        .control-input.select {
+        .config-input.select {
             cursor: pointer;
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
@@ -690,139 +688,38 @@
             font-weight: 700;
             color: var(--primary);
             font-size: 1.1rem;
-        }
-        
-        .speed-controls {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .speed-controls .btn {
-            flex: 1;
-        }
-        
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-        
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            cursor: pointer;
-            font-size: 0.95rem;
-        }
-        
-        .checkbox-label input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-        
-        .execution-controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-        }
-        
-        .stats {
-            background: var(--light);
+            background: var(--gray-100);
+            padding: 0.25rem 0.75rem;
             border-radius: var(--radius-md);
-            padding: 1.25rem;
-            border: 1px solid var(--gray-200);
         }
         
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--gray-200);
+        /* بخش میانی - محتوای اصلی آزمایشگاه */
+        .lab-main-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            flex: 1;
+            min-height: 500px;
         }
         
-        .stat-item:last-child {
-            border-bottom: none;
-        }
-        
-        .stat-label {
-            color: var(--gray-600);
-            font-size: 0.95rem;
-        }
-        
-        .stat-value {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-        
-        .visualization-area {
+        /* پنل چپ - شطرنج و کنترل‌های مینیمال */
+        .chessboard-panel {
             background: var(--light);
             border-radius: var(--radius-lg);
             padding: 1.5rem;
-            overflow: hidden;
             box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
             display: flex;
             flex-direction: column;
+            gap: 1.5rem;
         }
         
-        .viz-header {
+        .chessboard-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
             padding-bottom: 1rem;
             border-bottom: 2px solid var(--gray-100);
-        }
-        
-        .viz-tabs {
-            display: flex;
-            gap: 0.5rem;
-            background: var(--gray-100);
-            padding: 0.5rem;
-            border-radius: var(--radius-md);
-        }
-        
-        .viz-tab {
-            padding: 0.75rem 1.25rem;
-            border: none;
-            background: transparent;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: 500;
-            color: var(--gray-600);
-            transition: var(--transition-fast);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .viz-tab:hover {
-            color: var(--primary);
-            background: var(--light);
-        }
-        
-        .viz-tab.active {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .viz-content {
-            flex: 1;
-            overflow: hidden;
-        }
-        
-        .viz-pane {
-            height: 100%;
-            display: none;
-        }
-        
-        .viz-pane.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
         }
         
         .chessboard-container {
@@ -830,15 +727,15 @@
             flex-direction: column;
             align-items: center;
             gap: 1.5rem;
-            height: 100%;
+            flex: 1;
         }
         
         .chessboard {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             grid-template-rows: repeat(8, 1fr);
-            width: min(500px, 70vh);
-            height: min(500px, 70vh);
+            width: min(500px, 60vh);
+            height: min(500px, 60vh);
             border: 4px solid var(--dark);
             border-radius: 12px;
             overflow: hidden;
@@ -877,62 +774,200 @@
             50% { transform: scale(1.05); }
         }
         
-        .chess-controls {
+        /* کنترل‌های مینیمال شطرنج */
+        .chess-controls-minimal {
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
             justify-content: center;
-        }
-        
-        .tree-container {
-            width: 100%;
-            height: 100%;
-            background: var(--gray-50);
-            border-radius: var(--radius-md);
-            overflow: auto;
+            gap: 0.75rem;
             padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
             border: 1px solid var(--gray-200);
         }
         
-        .code-preview-container {
-            height: 100%;
+        .execution-controls-minimal {
             display: flex;
-            flex-direction: column;
+            gap: 0.5rem;
         }
         
-        .code-header {
+        .execution-controls-minimal .btn {
+            padding: 0.75rem;
+            min-width: 50px;
+        }
+        
+        .execution-controls-minimal .btn-primary {
+            min-width: 100px;
+        }
+        
+        /* پنل راست - آمار و اطلاعات */
+        .stats-panel {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .stats-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-100);
         }
         
-        .code-editor {
-            flex: 1;
-            background: #1e1e1e;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .stat-card {
+            background: var(--gray-50);
             border-radius: var(--radius-md);
-            overflow: hidden;
-            border: 1px solid var(--gray-700);
+            padding: 1.25rem;
+            border: 1px solid var(--gray-200);
+            transition: var(--transition-normal);
         }
         
-        .code-content {
-            padding: 1rem;
-            font-family: 'Courier New', monospace;
-            color: #d4d4d4;
+        .stat-card:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .stat-title {
+            font-weight: 600;
+            color: var(--gray-700);
             font-size: 0.95rem;
-            line-height: 1.5;
-            overflow: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stat-title i {
+            color: var(--primary);
+        }
+        
+        .stat-value {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .stat-unit {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            margin-right: 0.25rem;
+        }
+        
+        .stat-progress {
+            margin-top: 0.75rem;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+        
+        .progress-fill {
             height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-full);
+            transition: width 0.5s ease;
         }
         
-        .code-line {
-            padding: 0.125rem 0;
-            white-space: pre;
+        .solutions-list {
+            margin-top: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
         }
         
-        .code-line.highlight {
-            background: rgba(59, 130, 246, 0.3);
-            border-left: 3px solid var(--primary);
+        .solution-item {
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid var(--gray-200);
+            font-family: monospace;
+            font-size: 0.875rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .solution-item:last-child {
+            border-bottom: none;
+        }
+        
+        .solution-view-btn {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+        }
+        
+        /* تب‌های تجسم */
+        .viz-tabs-container {
+            margin-top: 1.5rem;
+        }
+        
+        .viz-tabs {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--gray-100);
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+        }
+        
+        .viz-tab {
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 500;
+            color: var(--gray-600);
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+        
+        .viz-tab:hover {
+            color: var(--primary);
+            background: var(--light);
+        }
+        
+        .viz-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .viz-content {
+            margin-top: 1rem;
+        }
+        
+        .viz-pane {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .viz-pane.active {
+            display: block;
         }
         
         /* ۱۱. صفحه منابع */
@@ -956,16 +991,18 @@
         
         /* ۱۲. رسپانسیو */
         @media (max-width: 1200px) {
-            .lab-container {
+            .lab-main-content {
                 grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr;
-                height: auto;
-                min-height: 800px;
+                grid-template-rows: auto auto;
+            }
+            
+            .stats-panel {
+                max-height: 400px;
             }
             
             .chessboard {
-                width: min(400px, 60vh);
-                height: min(400px, 60vh);
+                width: min(400px, 50vh);
+                height: min(400px, 50vh);
             }
         }
         
@@ -979,6 +1016,10 @@
             }
             
             .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .problem-config-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -1040,8 +1081,14 @@
                 height: min(350px, 50vh);
             }
             
-            .execution-controls {
-                grid-template-columns: 1fr;
+            .lab-main-content {
+                grid-template-rows: auto auto;
+                gap: 1.5rem;
+            }
+            
+            .execution-controls-minimal {
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
         
@@ -1059,7 +1106,7 @@
             h3 { font-size: 1.25rem; }
             
             .page {
-                padding: 2rem 0;
+                padding: 1.5rem 0;
             }
             
             .chessboard {
@@ -1067,8 +1114,17 @@
                 height: 300px;
             }
             
-            .speed-controls {
+            .lab-page-container {
+                height: auto;
+                min-height: calc(100vh - var(--header-height) - var(--footer-height) - 3rem);
+            }
+            
+            .execution-controls-minimal {
                 flex-direction: column;
+            }
+            
+            .execution-controls-minimal .btn {
+                width: 100%;
             }
             
             .viz-tabs {
@@ -1078,6 +1134,7 @@
             .viz-tab {
                 flex: 1;
                 justify-content: center;
+                min-width: 120px;
             }
         }
         
@@ -1089,6 +1146,16 @@
             
             .hero-actions .btn {
                 padding: 0.75rem 1rem;
+            }
+            
+            .range-control {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+            }
+            
+            .range-value {
+                text-align: center;
             }
         }
         
@@ -1227,7 +1294,7 @@
         }
         
         .notification.success {
-            border-left-color: var(--secondary);
+            border-left-color: var(--success);
         }
         
         .notification.error {
@@ -1259,21 +1326,6 @@
         .notification-close:hover {
             background: var(--gray-200);
             color: var(--dark);
-        }
-        
-        .progress-bar {
-            height: 8px;
-            background: var(--gray-200);
-            border-radius: var(--radius-full);
-            overflow: hidden;
-            margin: 1rem 0;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: var(--radius-full);
-            transition: width 0.3s ease;
         }
         
         .loading {
@@ -1373,205 +1425,268 @@
             </div>
         </section>
         
-        <!-- صفحه آزمایشگاه -->
+        <!-- صفحه آزمایشگاه - طراحی جدید -->
         <section id="lab-page" class="page">
-            <div class="lab-header">
-                <h1>آزمایشگاه ۸ وزیر</h1>
-                <p class="text-center">الگوریتم‌های مختلف را اجرا، تجسم و مقایسه کنید</p>
-            </div>
-            
-            <div class="lab-container">
-                <!-- پنل کنترل -->
-                <div class="control-panel">
-                    <div class="panel-section">
-                        <h3><i class="fas fa-sliders-h"></i> تنظیمات مسئله</h3>
-                        
-                        <div class="control-group">
-                            <label class="control-label">اندازه صفحه (N):</label>
+            <div class="lab-page-container">
+                <!-- بخش ۱: تنظیمات مسئله (بالای صفحه) -->
+                <div class="problem-config-section">
+                    <h3 class="mb-4"><i class="fas fa-sliders-h"></i> تنظیمات مسئله</h3>
+                    <div class="problem-config-grid">
+                        <div class="config-group">
+                            <label class="config-label">
+                                <i class="fas fa-chess-board"></i>
+                                اندازه صفحه (N)
+                            </label>
                             <div class="range-control">
-                                <input type="range" id="board-size" min="4" max="12" value="8" class="control-input">
+                                <input type="range" id="board-size" min="4" max="12" value="8" class="config-input">
                                 <span class="range-value" id="board-size-value">8</span>
                             </div>
                             <div class="text-right mt-1">
-                                <small>تعداد وزیرها و ابعاد صفحه</small>
+                                <small style="color: var(--gray-500);">تعداد وزیرها و ابعاد صفحه شطرنج</small>
                             </div>
                         </div>
                         
-                        <div class="control-group">
-                            <label class="control-label">الگوریتم:</label>
-                            <select id="algorithm-select" class="control-input select">
+                        <div class="config-group">
+                            <label class="config-label">
+                                <i class="fas fa-code-branch"></i>
+                                الگوریتم جستجو
+                            </label>
+                            <select id="algorithm-select" class="config-input select">
                                 <option value="backtracking">Backtracking (عقب‌گرد)</option>
                                 <option value="dfs">جستجوی عمق‌اول (DFS)</option>
                                 <option value="bfs">جستجوی سطح‌اول (BFS)</option>
                                 <option value="heuristic">جستجوی هیوریستیک</option>
                             </select>
                         </div>
-                    </div>
-                    
-                    <div class="panel-section">
-                        <h3><i class="fas fa-tachometer-alt"></i> کنترل اجرا</h3>
                         
-                        <div class="control-group">
-                            <label class="control-label">سرعت انیمیشن:</label>
-                            <div class="speed-controls">
-                                <button class="btn" data-speed="0.5">🐌 کند</button>
-                                <button class="btn btn-primary" data-speed="1">🚶 معمولی</button>
-                                <button class="btn" data-speed="2">🏃 سریع</button>
-                                <button class="btn" data-speed="0">⏸️ توقف</button>
-                            </div>
-                        </div>
-                        
-                        <div class="control-group">
-                            <div class="execution-controls">
-                                <button id="start-btn" class="btn btn-primary">
-                                    <i class="fas fa-play"></i>
-                                    شروع اجرا
-                                </button>
-                                <button id="step-btn" class="btn btn-secondary">
-                                    <i class="fas fa-step-forward"></i>
-                                    قدم بعدی
-                                </button>
-                                <button id="pause-btn" class="btn btn-accent">
-                                    <i class="fas fa-pause"></i>
-                                    مکث
-                                </button>
-                                <button id="reset-btn" class="btn btn-danger">
-                                    <i class="fas fa-redo"></i>
-                                    ریست
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="control-group">
-                            <label class="control-label">نمایش:</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="show-animation" checked>
-                                    <span>انیمیشن مراحل</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="show-conflicts" checked>
-                                    <span>بررسی برخوردها</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="show-stats" checked>
-                                    <span>نمایش آمار زنده</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="panel-section">
-                        <h3><i class="fas fa-chart-bar"></i> آمار اجرا</h3>
-                        <div class="stats">
-                            <div class="stat-item">
-                                <span class="stat-label">گره‌های بررسی شده:</span>
-                                <span class="stat-value" id="nodes-checked">0</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">زمان اجرا:</span>
-                                <span class="stat-value" id="execution-time">0ms</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">راه‌حل‌های پیدا شده:</span>
-                                <span class="stat-value" id="solutions-found">0</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">عمق جستجو:</span>
-                                <span class="stat-value" id="search-depth">0</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">ضریب انشعاب:</span>
-                                <span class="stat-value" id="branching-factor">0.00</span>
+                        <div class="config-group">
+                            <label class="config-label">
+                                <i class="fas fa-tachometer-alt"></i>
+                                سرعت اجرا
+                            </label>
+                            <div class="flex gap-2">
+                                <button class="btn btn-sm" data-speed="0.5">🐌</button>
+                                <button class="btn btn-sm btn-primary" data-speed="1">🚶</button>
+                                <button class="btn btn-sm" data-speed="2">🏃</button>
+                                <button class="btn btn-sm" data-speed="0">⏸️</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- ناحیه تجسم -->
-                <div class="visualization-area">
-                    <div class="viz-header">
-                        <h3><i class="fas fa-eye"></i> تجسم الگوریتم</h3>
-                        <div class="viz-tabs">
-                            <button class="viz-tab active" data-viz="board">
-                                <i class="fas fa-chess-board"></i>
-                                صفحه شطرنج
-                            </button>
-                            <button class="viz-tab" data-viz="tree">
-                                <i class="fas fa-project-diagram"></i>
-                                درخت جستجو
-                            </button>
-                            <button class="viz-tab" data-viz="code">
-                                <i class="fas fa-code"></i>
-                                کد الگوریتم
-                            </button>
-                            <button class="viz-tab" data-viz="chart">
-                                <i class="fas fa-chart-line"></i>
-                                نمودار
-                            </button>
+                <!-- بخش ۲: محتوای اصلی آزمایشگاه -->
+                <div class="lab-main-content">
+                    <!-- پنل چپ: شطرنج و کنترل‌های مینیمال -->
+                    <div class="chessboard-panel">
+                        <div class="chessboard-header">
+                            <h4><i class="fas fa-chess-queen"></i> صفحه شطرنج</h4>
+                            <div class="flex gap-2">
+                                <button id="show-solution-btn" class="btn btn-sm btn-outline">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button id="clear-board-btn" class="btn btn-sm btn-outline">
+                                    <i class="fas fa-eraser"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="viz-content">
-                        <!-- تب ۱: صفحه شطرنج -->
-                        <div class="viz-pane active" id="board-viz">
-                            <div class="chessboard-container">
-                                <div class="chessboard" id="chessboard">
-                                    <!-- شطرنج با JS ساخته می‌شود -->
-                                </div>
-                                <div class="chess-controls">
-                                    <button id="show-solution-btn" class="btn btn-outline">
-                                        <i class="fas fa-eye"></i>
-                                        نمایش راه‌حل
+                        
+                        <div class="chessboard-container">
+                            <div class="chessboard" id="chessboard">
+                                <!-- شطرنج با JS ساخته می‌شود -->
+                            </div>
+                            
+                            <!-- کنترل‌های مینیمال اجرا -->
+                            <div class="chess-controls-minimal">
+                                <div class="execution-controls-minimal">
+                                    <button id="start-btn" class="btn btn-primary">
+                                        <i class="fas fa-play"></i>
+                                        <span class="hidden-mobile">اجرا</span>
                                     </button>
-                                    <button id="clear-board-btn" class="btn btn-outline">
-                                        <i class="fas fa-eraser"></i>
-                                        پاک کردن
+                                    <button id="step-btn" class="btn btn-secondary">
+                                        <i class="fas fa-step-forward"></i>
+                                        <span class="hidden-mobile">قدم</span>
                                     </button>
-                                    <button id="export-board-btn" class="btn btn-outline">
-                                        <i class="fas fa-download"></i>
-                                        ذخیره تصویر
+                                    <button id="pause-btn" class="btn btn-accent">
+                                        <i class="fas fa-pause"></i>
+                                        <span class="hidden-mobile">مکث</span>
+                                    </button>
+                                    <button id="reset-btn" class="btn btn-danger">
+                                        <i class="fas fa-redo"></i>
+                                        <span class="hidden-mobile">ریست</span>
                                     </button>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- تب ۲: درخت جستجو -->
-                        <div class="viz-pane" id="tree-viz">
-                            <div class="tree-container" id="tree-container">
-                                <div class="text-center p-5">
-                                    <i class="fas fa-project-diagram" style="font-size: 4rem; color: var(--gray-300);"></i>
-                                    <p class="mt-3">درخت جستجو در اینجا نمایش داده می‌شود</p>
-                                    <p class="text-sm mt-2">(این بخش در حال توسعه است)</p>
-                                </div>
+                        <!-- تب‌های تجسم -->
+                        <div class="viz-tabs-container">
+                            <div class="viz-tabs">
+                                <button class="viz-tab active" data-viz="board">
+                                    <i class="fas fa-chess-board"></i>
+                                    شطرنج
+                                </button>
+                                <button class="viz-tab" data-viz="code">
+                                    <i class="fas fa-code"></i>
+                                    کد الگوریتم
+                                </button>
+                                <button class="viz-tab" data-viz="tree">
+                                    <i class="fas fa-project-diagram"></i>
+                                    درخت جستجو
+                                </button>
                             </div>
-                        </div>
-                        
-                        <!-- تب ۳: کد الگوریتم -->
-                        <div class="viz-pane" id="code-viz">
-                            <div class="code-preview-container">
-                                <div class="code-header">
-                                    <h4>کد الگوریتم <span id="current-algorithm-name">Backtracking</span></h4>
-                                    <button id="copy-code-btn" class="btn btn-sm">
-                                        <i class="fas fa-copy"></i>
-                                        کپی کد
-                                    </button>
+                            
+                            <div class="viz-content">
+                                <!-- تب شطرنج (پیش‌فرض) -->
+                                <div class="viz-pane active" id="board-viz">
+                                    <div class="text-center p-3">
+                                        <p style="color: var(--gray-600);">صفحه شطرنج تعاملی - وزیرها را ببینید!</p>
+                                    </div>
                                 </div>
-                                <div class="code-editor">
-                                    <div class="code-content" id="algorithm-code">
-                                        <div class="code-line">// کد الگوریتم در اینجا نمایش داده می‌شود</div>
+                                
+                                <!-- تب کد الگوریتم -->
+                                <div class="viz-pane" id="code-viz">
+                                    <div class="code-preview" style="background: var(--gray-50); padding: 1rem; border-radius: var(--radius-md); font-family: monospace; font-size: 0.9rem; max-height: 200px; overflow-y: auto;">
+                                        <div id="algorithm-code-preview">
+                                            // کد الگوریتم در اینجا نمایش داده می‌شود
+                                        </div>
+                                        <div class="text-center mt-2">
+                                            <button id="copy-code-btn" class="btn btn-sm">
+                                                <i class="fas fa-copy"></i>
+                                                کپی کد
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- تب درخت جستجو -->
+                                <div class="viz-pane" id="tree-viz">
+                                    <div class="text-center p-3">
+                                        <i class="fas fa-project-diagram" style="font-size: 3rem; color: var(--gray-300);"></i>
+                                        <p class="mt-2" style="color: var(--gray-600);">درخت جستجو در حال توسعه است</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    
+                    <!-- پنل راست: آمار و اطلاعات (سمت چپ در زبان فارسی) -->
+                    <div class="stats-panel">
+                        <div class="stats-header">
+                            <h4><i class="fas fa-chart-bar"></i> آمار اجرا</h4>
+                            <button id="refresh-stats-btn" class="btn btn-sm btn-outline">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
                         
-                        <!-- تب ۴: نمودار -->
-                        <div class="viz-pane" id="chart-viz">
-                            <div class="tree-container">
-                                <div class="text-center p-5">
-                                    <i class="fas fa-chart-line" style="font-size: 4rem; color: var(--gray-300);"></i>
-                                    <p class="mt-3">نمودارهای تحلیل در اینجا نمایش داده می‌شوند</p>
-                                    <p class="text-sm mt-2">(این بخش در حال توسعه است)</p>
+                        <div class="stats-grid">
+                            <!-- کارت آمار ۱: گره‌های بررسی شده -->
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <div class="stat-title">
+                                        <i class="fas fa-sitemap"></i>
+                                        گره‌های بررسی شده
+                                    </div>
+                                    <div class="stat-value" id="nodes-checked">0</div>
+                                </div>
+                                <div class="stat-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="nodes-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- کارت آمار ۲: زمان اجرا -->
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <div class="stat-title">
+                                        <i class="fas fa-stopwatch"></i>
+                                        زمان اجرا
+                                    </div>
+                                    <div class="stat-value">
+                                        <span id="execution-time">0</span>
+                                        <span class="stat-unit">ms</span>
+                                    </div>
+                                </div>
+                                <div class="stat-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="time-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- کارت آمار ۳: راه‌حل‌های پیدا شده -->
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <div class="stat-title">
+                                        <i class="fas fa-chess-queen"></i>
+                                        راه‌حل‌های پیدا شده
+                                    </div>
+                                    <div class="stat-value" id="solutions-found">0</div>
+                                </div>
+                                <div class="stat-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="solutions-progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- کارت آمار ۴: عمق جستجو -->
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <div class="stat-title">
+                                        <i class="fas fa-layer-group"></i>
+                                        عمق جستجو
+                                    </div>
+                                    <div class="stat-value" id="search-depth">0</div>
+                                </div>
+                            </div>
+                            
+                            <!-- کارت آمار ۵: ضریب انشعاب -->
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <div class="stat-title">
+                                        <i class="fas fa-expand-arrows-alt"></i>
+                                        ضریب انشعاب
+                                    </div>
+                                    <div class="stat-value" id="branching-factor">0.00</div>
+                                </div>
+                            </div>
+                            
+                            <!-- کارت آمار ۶: وضعیت اجرا -->
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <div class="stat-title">
+                                        <i class="fas fa-info-circle"></i>
+                                        وضعیت اجرا
+                                    </div>
+                                    <div class="stat-value">
+                                        <span id="execution-status" style="color: var(--success); font-size: 1rem;">آماده</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <div class="flex justify-between items-center">
+                                        <span style="font-size: 0.875rem; color: var(--gray-600);">پیشرفت:</span>
+                                        <span id="progress-percent" style="font-weight: 600; color: var(--primary);">0%</span>
+                                    </div>
+                                    <div class="progress-bar mt-1">
+                                        <div class="progress-fill" id="overall-progress" style="width: 0%; background: linear-gradient(90deg, var(--primary), var(--accent));"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- لیست راه‌حل‌ها -->
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <div class="stat-title">
+                                        <i class="fas fa-list-ol"></i>
+                                        لیست راه‌حل‌ها
+                                    </div>
+                                    <span class="stat-value" id="solutions-count">0</span>
+                                </div>
+                                <div class="solutions-list" id="solutions-list">
+                                    <div class="solution-item">
+                                        <span>هنوز راه‌حلی پیدا نشده است</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1632,7 +1747,7 @@
             defaultBoardSize: 8,
             animationSpeed: 1,
             theme: "light",
-            storageKey: "ai-edu-platform"
+            storageKey: "ai-edu-platform-v2"
         };
         
         // ==================== بخش ۲: مدیریت وضعیت برنامه ====================
@@ -1651,12 +1766,16 @@
             solutions: [],
             checkedNodes: 0,
             startTime: null,
+            maxPossibleNodes: 0,
+            
+            // آمار اجرا
             executionStats: {
                 nodesChecked: 0,
                 solutionsFound: 0,
                 executionTime: 0,
                 searchDepth: 0,
-                branchingFactor: 0
+                branchingFactor: 0,
+                progress: 0
             },
             
             // تنظیمات نمایش
@@ -1668,6 +1787,7 @@
             init() {
                 this.loadFromStorage();
                 this.updateUI();
+                this.calculateMaxNodes();
             },
             
             setPage(page) {
@@ -1679,13 +1799,21 @@
             setAlgorithm(algo) {
                 this.currentAlgorithm = algo;
                 this.saveToStorage();
-                this.updateCodePreview();
+                Utils.showAlgorithmCode(algo);
             },
             
             setBoardSize(size) {
                 this.boardSize = size;
                 this.saveToStorage();
                 Utils.createChessboard(size);
+                this.calculateMaxNodes();
+                this.updateStatsUI();
+            },
+            
+            calculateMaxNodes() {
+                // محاسبه حداکثر گره‌های ممکن برای اندازه صفحه فعلی
+                const n = this.boardSize;
+                this.maxPossibleNodes = Math.pow(n, n); // تخمین ساده
             },
             
             startExecution() {
@@ -1699,9 +1827,12 @@
                     nodesChecked: 0,
                     solutionsFound: 0,
                     executionTime: 0,
-                    searchDepth: 0,
-                    branchingFactor: 0
+                    searchDepth: this.boardSize,
+                    branchingFactor: 0,
+                    progress: 0
                 };
+                
+                this.updateExecutionStatus('در حال اجرا', 'var(--primary)');
             },
             
             pauseExecution() {
@@ -1709,6 +1840,7 @@
                 if (this.startTime) {
                     this.executionStats.executionTime = Date.now() - this.startTime;
                 }
+                this.updateExecutionStatus('متوقف شده', 'var(--warning)');
             },
             
             resumeExecution() {
@@ -1716,6 +1848,7 @@
                 if (this.startTime) {
                     this.startTime = Date.now() - this.executionStats.executionTime;
                 }
+                this.updateExecutionStatus('در حال اجرا', 'var(--primary)');
             },
             
             stopExecution() {
@@ -1723,6 +1856,15 @@
                 this.isPaused = false;
                 if (this.startTime) {
                     this.executionStats.executionTime = Date.now() - this.startTime;
+                }
+                this.updateExecutionStatus('کامل شده', 'var(--success)');
+            },
+            
+            updateExecutionStatus(text, color) {
+                const statusElement = document.getElementById('execution-status');
+                if (statusElement) {
+                    statusElement.textContent = text;
+                    statusElement.style.color = color;
                 }
             },
             
@@ -1732,25 +1874,98 @@
                 this.executionStats.nodesChecked = nodes;
                 this.executionStats.solutionsFound = solutions.length;
                 this.executionStats.searchDepth = this.boardSize;
+                this.executionStats.executionTime = Date.now() - this.startTime;
                 
+                // محاسبه ضریب انشعاب
                 if (nodes > 0 && this.boardSize > 0) {
                     this.executionStats.branchingFactor = (nodes / this.boardSize).toFixed(2);
                 }
                 
-                this.updateStatsDisplay();
+                // محاسبه پیشرفت
+                if (this.maxPossibleNodes > 0) {
+                    this.executionStats.progress = Math.min(100, (nodes / this.maxPossibleNodes) * 100).toFixed(1);
+                }
+                
+                this.updateStatsUI();
+                this.updateSolutionsList();
             },
             
-            updateStatsDisplay() {
+            updateStatsUI() {
+                // آپدیت مقادیر عددی
                 document.getElementById('nodes-checked').textContent = 
                     this.executionStats.nodesChecked.toLocaleString();
                 document.getElementById('solutions-found').textContent = 
                     this.executionStats.solutionsFound.toLocaleString();
                 document.getElementById('execution-time').textContent = 
-                    `${this.executionStats.executionTime}ms`;
+                    this.executionStats.executionTime;
                 document.getElementById('search-depth').textContent = 
                     this.executionStats.searchDepth;
                 document.getElementById('branching-factor').textContent = 
                     this.executionStats.branchingFactor;
+                document.getElementById('solutions-count').textContent = 
+                    this.executionStats.solutionsFound;
+                document.getElementById('progress-percent').textContent = 
+                    `${this.executionStats.progress}%`;
+                
+                // آپدیت نوارهای پیشرفت
+                const nodesProgress = Math.min(100, (this.executionStats.nodesChecked / this.maxPossibleNodes) * 100);
+                document.getElementById('nodes-progress').style.width = `${nodesProgress}%`;
+                
+                const timeProgress = Math.min(100, (this.executionStats.executionTime / 5000) * 100);
+                document.getElementById('time-progress').style.width = `${timeProgress}%`;
+                
+                const solutionsProgress = this.executionStats.solutionsFound > 0 ? 100 : 0;
+                document.getElementById('solutions-progress').style.width = `${solutionsProgress}%`;
+                
+                document.getElementById('overall-progress').style.width = `${this.executionStats.progress}%`;
+            },
+            
+            updateSolutionsList() {
+                const container = document.getElementById('solutions-list');
+                if (!container) return;
+                
+                if (this.solutions.length === 0) {
+                    container.innerHTML = `
+                        <div class="solution-item">
+                            <span>هنوز راه‌حلی پیدا نشده است</span>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let html = '';
+                this.solutions.slice(0, 10).forEach((solution, index) => {
+                    const solutionText = solution.join(', ');
+                    html += `
+                        <div class="solution-item">
+                            <span>راه‌حل ${index + 1}: [${solutionText}]</span>
+                            <button class="btn btn-sm solution-view-btn" data-index="${index}">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+                
+                if (this.solutions.length > 10) {
+                    html += `
+                        <div class="solution-item text-center">
+                            <span style="color: var(--gray-500);">
+                                و ${this.solutions.length - 10} راه‌حل دیگر...
+                            </span>
+                        </div>
+                    `;
+                }
+                
+                container.innerHTML = html;
+                
+                // اضافه کردن رویداد به دکمه‌های مشاهده
+                container.querySelectorAll('.solution-view-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = parseInt(e.target.closest('button').dataset.index);
+                        Utils.displaySolution(this.solutions[index]);
+                        Utils.showNotification('info', 'نمایش راه‌حل', `راه‌حل ${index + 1} نمایش داده شد.`);
+                    });
+                });
             },
             
             saveToStorage() {
@@ -1788,10 +2003,6 @@
             
             updateUI() {
                 // این تابع بعداً کامل می‌شود
-            },
-            
-            updateCodePreview() {
-                Utils.showAlgorithmCode(this.currentAlgorithm);
             }
         };
         
@@ -2291,8 +2502,8 @@
                 container.innerHTML = '';
                 container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
                 container.style.gridTemplateRows = `repeat(${size}, 1fr)`;
-                container.style.width = `min(500px, 70vh)`;
-                container.style.height = `min(500px, 70vh)`;
+                container.style.width = `min(500px, 60vh)`;
+                container.style.height = `min(500px, 60vh)`;
                 
                 for (let row = 0; row < size; row++) {
                     for (let col = 0; col < size; col++) {
@@ -2311,8 +2522,7 @@
                 const algo = Algorithms[algoName];
                 if (!algo) return;
                 
-                const codeElement = document.getElementById('algorithm-code');
-                const algoNameElement = document.getElementById('current-algorithm-name');
+                const codeElement = document.getElementById('algorithm-code-preview');
                 
                 if (codeElement) {
                     // تقسیم کد به خطوط
@@ -2321,14 +2531,10 @@
                     
                     lines.forEach((line, index) => {
                         const lineNumber = index + 1;
-                        html += `<div class="code-line" data-line="${lineNumber}">${this.escapeHtml(line)}</div>`;
+                        html += `<div style="margin-bottom: 2px;">${this.escapeHtml(line)}</div>`;
                     });
                     
                     codeElement.innerHTML = html;
-                }
-                
-                if (algoNameElement) {
-                    algoNameElement.textContent = algo.name;
                 }
             },
             
@@ -2349,7 +2555,7 @@
                 const algorithm = AppState.currentAlgorithm;
                 
                 // آپدیت UI
-                document.getElementById('start-btn').innerHTML = '<i class="fas fa-pause"></i> مکث';
+                document.getElementById('start-btn').innerHTML = '<i class="fas fa-pause"></i>';
                 document.getElementById('start-btn').classList.add('btn-danger');
                 document.getElementById('pause-btn').disabled = true;
                 document.getElementById('step-btn').disabled = true;
@@ -2357,38 +2563,70 @@
                 // پاک کردن صفحه
                 this.clearChessboard();
                 
-                // اجرای الگوریتم
-                setTimeout(() => {
-                    try {
-                        const result = AlgorithmImplementations[algorithm](size);
+                // اجرای الگوریتم با انیمیشن
+                this.runAlgorithmWithAnimation(size, algorithm);
+            },
+            
+            // اجرای الگوریتم با انیمیشن
+            runAlgorithmWithAnimation(size, algorithm) {
+                let currentStep = 0;
+                const steps = 100; // تعداد مراحل انیمیشن
+                const stepDelay = 50; // تاخیر بین مراحل
+                
+                const animateStep = () => {
+                    if (currentStep >= steps || !AppState.isRunning) {
+                        // پایان انیمیشن - اجرای واقعی الگوریتم
+                        setTimeout(() => {
+                            try {
+                                const result = AlgorithmImplementations[algorithm](size);
+                                
+                                // آپدیت آمار
+                                AppState.updateStats(result.nodesVisited, result.solutions);
+                                
+                                // نمایش اولین راه‌حل
+                                if (result.solutions.length > 0) {
+                                    this.displaySolution(result.solutions[0]);
+                                }
+                                
+                                // نمایش نوتیفیکیشن
+                                this.showNotification(
+                                    'success',
+                                    'اجرا کامل شد!',
+                                    `${result.solutions.length} راه‌حل پیدا شد. ${result.nodesVisited.toLocaleString()} گره بررسی شد.`
+                                );
+                                
+                            } catch (error) {
+                                console.error('خطا در اجرای الگوریتم:', error);
+                                this.showNotification(
+                                    'error',
+                                    'خطا در اجرا',
+                                    'در اجرای الگوریتم مشکلی پیش آمد.'
+                                );
+                            } finally {
+                                AppState.stopExecution();
+                                this.resetExecutionButtons();
+                            }
+                        }, 500);
                         
-                        // آپدیت آمار
-                        AppState.updateStats(result.nodesVisited, result.solutions);
-                        
-                        // نمایش اولین راه‌حل
-                        if (result.solutions.length > 0) {
-                            this.displaySolution(result.solutions[0]);
-                        }
-                        
-                        // نمایش نوتیفیکیشن
-                        this.showNotification(
-                            'success',
-                            'اجرا کامل شد!',
-                            `${result.solutions.length} راه‌حل پیدا شد. ${result.nodesVisited.toLocaleString()} گره بررسی شد.`
-                        );
-                        
-                    } catch (error) {
-                        console.error('خطا در اجرای الگوریتم:', error);
-                        this.showNotification(
-                            'error',
-                            'خطا در اجرا',
-                            'در اجرای الگوریتم مشکلی پیش آمد.'
-                        );
-                    } finally {
-                        AppState.stopExecution();
-                        this.resetExecutionButtons();
+                        return;
                     }
-                }, 500);
+                    
+                    // آپدیت آمار انیمیشنی
+                    const progress = (currentStep / steps) * 100;
+                    const estimatedNodes = Math.floor((progress / 100) * AppState.maxPossibleNodes);
+                    const estimatedSolutions = Math.floor(progress / 20);
+                    
+                    AppState.executionStats.nodesChecked = estimatedNodes;
+                    AppState.executionStats.solutionsFound = estimatedSolutions;
+                    AppState.executionStats.executionTime = currentStep * stepDelay;
+                    AppState.executionStats.progress = progress;
+                    AppState.updateStatsUI();
+                    
+                    currentStep++;
+                    setTimeout(animateStep, stepDelay);
+                };
+                
+                animateStep();
             },
             
             // نمایش راه‌حل روی شطرنج
@@ -2398,7 +2636,7 @@
                 
                 const cells = board.querySelectorAll('.chess-cell');
                 const size = solution.length;
-                const delay = AppState.showAnimation ? 300 : 0;
+                const delay = AppState.showAnimation ? 200 : 0;
                 
                 cells.forEach(cell => {
                     cell.innerHTML = '';
@@ -2434,20 +2672,25 @@
                 });
                 
                 // ریست آمار
-                document.getElementById('nodes-checked').textContent = '0';
-                document.getElementById('solutions-found').textContent = '0';
-                document.getElementById('execution-time').textContent = '0ms';
-                document.getElementById('search-depth').textContent = '0';
-                document.getElementById('branching-factor').textContent = '0.00';
+                AppState.executionStats = {
+                    nodesChecked: 0,
+                    solutionsFound: 0,
+                    executionTime: 0,
+                    searchDepth: AppState.boardSize,
+                    branchingFactor: 0,
+                    progress: 0
+                };
+                AppState.updateStatsUI();
+                AppState.updateExecutionStatus('آماده', 'var(--success)');
             },
             
             // ریست دکمه‌های اجرا
             resetExecutionButtons() {
-                document.getElementById('start-btn').innerHTML = '<i class="fas fa-play"></i> شروع اجرا';
+                document.getElementById('start-btn').innerHTML = '<i class="fas fa-play"></i>';
                 document.getElementById('start-btn').classList.remove('btn-danger');
                 document.getElementById('pause-btn').disabled = false;
                 document.getElementById('step-btn').disabled = false;
-                document.getElementById('pause-btn').innerHTML = '<i class="fas fa-pause"></i> مکث';
+                document.getElementById('pause-btn').innerHTML = '<i class="fas fa-pause"></i>';
             },
             
             // نمایش نوتیفیکیشن
@@ -2488,7 +2731,7 @@
             
             // کپی کد
             copyCodeToClipboard() {
-                const codeElement = document.getElementById('algorithm-code');
+                const codeElement = document.getElementById('algorithm-code-preview');
                 if (!codeElement) return;
                 
                 const code = codeElement.textContent;
@@ -2681,7 +2924,7 @@
                 document.getElementById('start-btn').addEventListener('click', () => {
                     if (AppState.isRunning) {
                         AppState.pauseExecution();
-                        document.getElementById('start-btn').innerHTML = '<i class="fas fa-play"></i> ادامه';
+                        document.getElementById('start-btn').innerHTML = '<i class="fas fa-play"></i>';
                         document.getElementById('start-btn').classList.remove('btn-danger');
                     } else {
                         Utils.runAlgorithm();
@@ -2698,11 +2941,11 @@
                 document.getElementById('pause-btn').addEventListener('click', () => {
                     if (AppState.isRunning && !AppState.isPaused) {
                         AppState.pauseExecution();
-                        document.getElementById('pause-btn').innerHTML = '<i class="fas fa-play"></i> ادامه';
+                        document.getElementById('pause-btn').innerHTML = '<i class="fas fa-play"></i>';
                         Utils.showNotification('info', 'مکث', 'اجرا متوقف شد.');
                     } else if (AppState.isRunning && AppState.isPaused) {
                         AppState.resumeExecution();
-                        document.getElementById('pause-btn').innerHTML = '<i class="fas fa-pause"></i> مکث';
+                        document.getElementById('pause-btn').innerHTML = '<i class="fas fa-pause"></i>';
                         Utils.showNotification('info', 'ادامه', 'اجرا ادامه پیدا کرد.');
                     }
                 });
@@ -2733,6 +2976,12 @@
                 // دکمه کپی کد
                 document.getElementById('copy-code-btn').addEventListener('click', () => {
                     Utils.copyCodeToClipboard();
+                });
+                
+                // دکمه رفرش آمار
+                document.getElementById('refresh-stats-btn').addEventListener('click', () => {
+                    AppState.updateStatsUI();
+                    Utils.showNotification('info', 'آمار به‌روز شد', 'آمار اجرا تازه‌سازی شد.');
                 });
                 
                 // دکمه تغییر تم
@@ -2768,6 +3017,15 @@
                         e.target.classList.add('btn-primary');
                         
                         AppState.saveToStorage();
+                        
+                        // نمایش پیام
+                        const speedNames = {
+                            0.5: 'کند',
+                            1: 'معمولی',
+                            2: 'سریع',
+                            0: 'توقف'
+                        };
+                        Utils.showNotification('info', 'سرعت تغییر کرد', `سرعت اجرا به ${speedNames[speed]} تغییر کرد.`);
                     });
                 });
                 
@@ -2777,22 +3035,6 @@
                         const vizId = e.target.closest('.viz-tab').getAttribute('data-viz');
                         Utils.switchVizTab(vizId);
                     });
-                });
-                
-                // چک‌باکس‌ها
-                document.getElementById('show-animation').addEventListener('change', (e) => {
-                    AppState.showAnimation = e.target.checked;
-                    AppState.saveToStorage();
-                });
-                
-                document.getElementById('show-conflicts').addEventListener('change', (e) => {
-                    AppState.showConflicts = e.target.checked;
-                    AppState.saveToStorage();
-                });
-                
-                document.getElementById('show-stats').addEventListener('change', (e) => {
-                    AppState.showStats = e.target.checked;
-                    AppState.saveToStorage();
                 });
                 
                 // کلیک خارج از منوی موبایل برای بستن
@@ -2819,6 +3061,18 @@
                         e.preventDefault();
                         const startBtn = document.getElementById('start-btn');
                         if (startBtn) startBtn.click();
+                    }
+                    
+                    // R برای ریست
+                    if (e.key === 'r' || e.key === 'R') {
+                        const resetBtn = document.getElementById('reset-btn');
+                        if (resetBtn) resetBtn.click();
+                    }
+                    
+                    // C برای پاک کردن
+                    if (e.key === 'c' || e.key === 'C') {
+                        const clearBtn = document.getElementById('clear-board-btn');
+                        if (clearBtn) clearBtn.click();
                     }
                 });
             }
@@ -2852,9 +3106,6 @@
             document.getElementById('board-size').value = AppState.boardSize;
             document.getElementById('board-size-value').textContent = AppState.boardSize;
             document.getElementById('algorithm-select').value = AppState.currentAlgorithm;
-            document.getElementById('show-animation').checked = AppState.showAnimation;
-            document.getElementById('show-conflicts').checked = AppState.showConflicts;
-            document.getElementById('show-stats').checked = AppState.showStats;
             
             // تنظیم دکمه سرعت فعال
             document.querySelectorAll('[data-speed]').forEach(btn => {
