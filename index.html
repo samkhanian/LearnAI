@@ -825,20 +825,64 @@
             min-width: 100px;
         }
         
-        /* پنل راست - آمار و اطلاعات */
-       .stats-panel {
-    background: var(--light);
-    border-radius: var(--radius-lg);
-    padding: 1rem;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--gray-200);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    overflow-y: auto;
-    height: fit-content;
-    max-height: none;
-}
+        /* آمار اجرا در پنل چپ */
+        .stats-section {
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .stats-grid-compact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-card-compact {
+            background: var(--light);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem;
+            border: 1px solid var(--gray-200);
+            text-align: center;
+            transition: var(--transition-normal);
+        }
+        
+        .stat-card-compact:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-1px);
+        }
+        
+        .stat-title-compact {
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-title-compact i {
+            color: var(--primary);
+            font-size: 0.875rem;
+        }
+        
+        .stat-value-compact {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary);
+        }
+        
+        .progress-section {
+            margin-bottom: 1rem;
+        }
+        
+        .solutions-button-section {
+            text-align: center;
+        }
         
         .stats-header {
             display: flex;
@@ -1020,13 +1064,7 @@
         /* ۱۲. رسپانسیو */
         @media (max-width: 1200px) {
             .lab-main-content {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto;
                 gap: 1rem;
-            }
-            
-            .stats-panel {
-                max-height: 400px;
             }
             
             .chessboard {
@@ -1111,8 +1149,7 @@
             }
             
             .lab-main-content {
-                grid-template-rows: auto auto;
-                gap: 1.5rem;
+                gap: 1rem;
             }
             
             .execution-controls-minimal {
@@ -1304,22 +1341,119 @@
             animation: spin 1s linear infinite;
         }
         
-        /* ۱۵. نوتفیکیشن و آلرت */
-        .notification {
+        /* مدال */
+        .modal {
+            display: none;
             position: fixed;
-            top: 1rem;
-            right: 1rem;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+        }
+        
+        .modal.active {
+            display: block;
+        }
+        
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background: var(--light);
             border-radius: var(--radius-lg);
-            padding: 1rem 1.5rem;
             box-shadow: var(--shadow-xl);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: var(--dark);
+            font-size: 1.25rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            z-index: 9999;
-            animation: slideInRight 0.3s ease;
-            border-left: 4px solid;
-            max-width: 400px;
+            gap: 0.5rem;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: var(--gray-500);
+            padding: 0.25rem;
+            border-radius: var(--radius-sm);
+        }
+        
+        .modal-close:hover {
+            background: var(--gray-200);
+            color: var(--dark);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .solutions-count {
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+        
+        .solutions-list-modal {
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .solution-item-modal {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--gray-200);
+            font-family: monospace;
+            font-size: 0.875rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .solution-item-modal:last-child {
+            border-bottom: none;
+        }
+        
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
         }
         
         .notification.success {
@@ -1598,8 +1732,8 @@
                         </div>
                     </div>
                     
-                    <!-- پنل راست: آمار و اطلاعات (سمت چپ در زبان فارسی) -->
-                    <div class="stats-panel">
+                    <!-- آمار اجرا در پنل چپ -->
+                    <div class="stats-section">
                         <div class="stats-header">
                             <h4><i class="fas fa-chart-bar"></i> آمار اجرا</h4>
                             <button id="refresh-stats-btn" class="btn btn-sm btn-outline">
@@ -1607,117 +1741,83 @@
                             </button>
                         </div>
                         
-                        <div class="stats-grid">
+                        <div class="stats-grid-compact">
                             <!-- کارت آمار ۱: گره‌های بررسی شده -->
-                            <div class="stat-card">
-                                <div class="stat-header">
-                                    <div class="stat-title">
-                                        <i class="fas fa-sitemap"></i>
-                                        گره‌های بررسی شده
-                                    </div>
-                                    <div class="stat-value" id="nodes-checked">0</div>
+                            <div class="stat-card-compact">
+                                <div class="stat-title-compact">
+                                    <i class="fas fa-sitemap"></i>
+                                    گره‌ها
                                 </div>
-                                <div class="stat-progress">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" id="nodes-progress" style="width: 0%"></div>
-                                    </div>
-                                </div>
+                                <div class="stat-value-compact" id="nodes-checked">0</div>
                             </div>
                             
                             <!-- کارت آمار ۲: زمان اجرا -->
-                            <div class="stat-card">
-                                <div class="stat-header">
-                                    <div class="stat-title">
-                                        <i class="fas fa-stopwatch"></i>
-                                        زمان اجرا
-                                    </div>
-                                    <div class="stat-value">
-                                        <span id="execution-time">0</span>
-                                        <span class="stat-unit">ms</span>
-                                    </div>
+                            <div class="stat-card-compact">
+                                <div class="stat-title-compact">
+                                    <i class="fas fa-stopwatch"></i>
+                                    زمان
                                 </div>
-                                <div class="stat-progress">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" id="time-progress" style="width: 0%"></div>
-                                    </div>
+                                <div class="stat-value-compact">
+                                    <span id="execution-time">0</span>ms
                                 </div>
                             </div>
                             
                             <!-- کارت آمار ۳: راه‌حل‌های پیدا شده -->
-                            <div class="stat-card">
-                                <div class="stat-header">
-                                    <div class="stat-title">
-                                        <i class="fas fa-chess-queen"></i>
-                                        راه‌حل‌های پیدا شده
-                                    </div>
-                                    <div class="stat-value" id="solutions-found">0</div>
+                            <div class="stat-card-compact">
+                                <div class="stat-title-compact">
+                                    <i class="fas fa-chess-queen"></i>
+                                    راه‌حل‌ها
                                 </div>
-                                <div class="stat-progress">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" id="solutions-progress" style="width: 0%"></div>
-                                    </div>
-                                </div>
+                                <div class="stat-value-compact" id="solutions-found">0</div>
                             </div>
                             
                             <!-- کارت آمار ۴: عمق جستجو -->
-                            <div class="stat-card">
-                                <div class="stat-header">
-                                    <div class="stat-title">
-                                        <i class="fas fa-layer-group"></i>
-                                        عمق جستجو
-                                    </div>
-                                    <div class="stat-value" id="search-depth">0</div>
+                            <div class="stat-card-compact">
+                                <div class="stat-title-compact">
+                                    <i class="fas fa-layer-group"></i>
+                                    عمق
                                 </div>
+                                <div class="stat-value-compact" id="search-depth">0</div>
                             </div>
                             
                             <!-- کارت آمار ۵: ضریب انشعاب -->
-                            <div class="stat-card">
-                                <div class="stat-header">
-                                    <div class="stat-title">
-                                        <i class="fas fa-expand-arrows-alt"></i>
-                                        ضریب انشعاب
-                                    </div>
-                                    <div class="stat-value" id="branching-factor">0.00</div>
+                            <div class="stat-card-compact">
+                                <div class="stat-title-compact">
+                                    <i class="fas fa-expand-arrows-alt"></i>
+                                    انشعاب
                                 </div>
+                                <div class="stat-value-compact" id="branching-factor">0.00</div>
                             </div>
                             
                             <!-- کارت آمار ۶: وضعیت اجرا -->
-                            <div class="stat-card">
-                                <div class="stat-header">
-                                    <div class="stat-title">
-                                        <i class="fas fa-info-circle"></i>
-                                        وضعیت اجرا
-                                    </div>
-                                    <div class="stat-value">
-                                        <span id="execution-status" style="color: var(--success); font-size: 1rem;">آماده</span>
-                                    </div>
+                            <div class="stat-card-compact">
+                                <div class="stat-title-compact">
+                                    <i class="fas fa-info-circle"></i>
+                                    وضعیت
                                 </div>
-                                <div class="mt-2">
-                                    <div class="flex justify-between items-center">
-                                        <span style="font-size: 0.875rem; color: var(--gray-600);">پیشرفت:</span>
-                                        <span id="progress-percent" style="font-weight: 600; color: var(--primary);">0%</span>
-                                    </div>
-                                    <div class="progress-bar mt-1">
-                                        <div class="progress-fill" id="overall-progress" style="width: 0%; background: linear-gradient(90deg, var(--primary), var(--accent));"></div>
-                                    </div>
+                                <div class="stat-value-compact">
+                                    <span id="execution-status" style="color: var(--success); font-size: 0.875rem;">آماده</span>
                                 </div>
                             </div>
-                            
-                            <!-- لیست راه‌حل‌ها -->
-                            <div class="stat-card">
-                                <div class="stat-header">
-                                    <div class="stat-title">
-                                        <i class="fas fa-list-ol"></i>
-                                        لیست راه‌حل‌ها
-                                    </div>
-                                    <span class="stat-value" id="solutions-count">0</span>
-                                </div>
-                                <div class="solutions-list" id="solutions-list">
-                                    <div class="solution-item">
-                                        <span>هنوز راه‌حلی پیدا نشده است</span>
-                                    </div>
-                                </div>
+                        </div>
+                        
+                        <!-- پیشرفت کلی -->
+                        <div class="progress-section">
+                            <div class="flex justify-between items-center mb-1">
+                                <span style="font-size: 0.875rem; color: var(--gray-600);">پیشرفت:</span>
+                                <span id="progress-percent" style="font-weight: 600; color: var(--primary); font-size: 0.875rem;">0%</span>
                             </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="overall-progress" style="width: 0%; background: linear-gradient(90deg, var(--primary), var(--accent));"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- دکمه لیست راه‌حل‌ها -->
+                        <div class="solutions-button-section">
+                            <button id="view-solutions-btn" class="btn btn-outline btn-sm">
+                                <i class="fas fa-list-ol"></i>
+                                مشاهده راه‌حل‌ها
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1759,6 +1859,38 @@
     
     <!-- نوتفیکیشن -->
     <div id="notification-container"></div>
+    
+    <!-- مدال لیست راه‌حل‌ها -->
+    <div id="solutions-modal" class="modal">
+        <div class="modal-overlay" id="solutions-modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-list-ol"></i> لیست راه‌حل‌ها</h3>
+                <button class="modal-close" id="solutions-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="solutions-count">
+                    تعداد راه‌حل‌های پیدا شده: <span id="modal-solutions-count">0</span>
+                </div>
+                <div class="solutions-list-modal" id="solutions-list-modal">
+                    <div class="solution-item-modal">
+                        <span>هنوز راه‌حلی پیدا نشده است</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="download-json-btn" class="btn btn-primary">
+                    <i class="fas fa-download"></i>
+                    دانلود JSON
+                </button>
+                <button class="btn btn-outline" id="solutions-modal-cancel">
+                    بستن
+                </button>
+            </div>
+        </div>
+    </div>
     
     <!-- ==================== HTML END ==================== -->
     
@@ -1931,31 +2063,28 @@
                     this.executionStats.searchDepth;
                 document.getElementById('branching-factor').textContent = 
                     this.executionStats.branchingFactor;
-                document.getElementById('solutions-count').textContent = 
-                    this.executionStats.solutionsFound;
                 document.getElementById('progress-percent').textContent = 
                     `${this.executionStats.progress}%`;
                 
-                // آپدیت نوارهای پیشرفت
-                const nodesProgress = Math.min(100, (this.executionStats.nodesChecked / this.maxPossibleNodes) * 100);
-                document.getElementById('nodes-progress').style.width = `${nodesProgress}%`;
-                
-                const timeProgress = Math.min(100, (this.executionStats.executionTime / 5000) * 100);
-                document.getElementById('time-progress').style.width = `${timeProgress}%`;
-                
-                const solutionsProgress = this.executionStats.solutionsFound > 0 ? 100 : 0;
-                document.getElementById('solutions-progress').style.width = `${solutionsProgress}%`;
-                
+                // آپدیت نوار پیشرفت کلی
                 document.getElementById('overall-progress').style.width = `${this.executionStats.progress}%`;
             },
             
             updateSolutionsList() {
-                const container = document.getElementById('solutions-list');
-                if (!container) return;
+                // آپدیت مدال
+                this.updateSolutionsModal();
+            },
+            
+            updateSolutionsModal() {
+                const container = document.getElementById('solutions-list-modal');
+                const countElement = document.getElementById('modal-solutions-count');
+                if (!container || !countElement) return;
+                
+                countElement.textContent = this.solutions.length;
                 
                 if (this.solutions.length === 0) {
                     container.innerHTML = `
-                        <div class="solution-item">
+                        <div class="solution-item-modal">
                             <span>هنوز راه‌حلی پیدا نشده است</span>
                         </div>
                     `;
@@ -1963,10 +2092,10 @@
                 }
                 
                 let html = '';
-                this.solutions.slice(0, 10).forEach((solution, index) => {
+                this.solutions.forEach((solution, index) => {
                     const solutionText = solution.join(', ');
                     html += `
-                        <div class="solution-item">
+                        <div class="solution-item-modal">
                             <span>راه‌حل ${index + 1}: [${solutionText}]</span>
                             <button class="btn btn-sm solution-view-btn" data-index="${index}">
                                 <i class="fas fa-eye"></i>
@@ -1974,16 +2103,6 @@
                         </div>
                     `;
                 });
-                
-                if (this.solutions.length > 10) {
-                    html += `
-                        <div class="solution-item text-center">
-                            <span style="color: var(--gray-500);">
-                                و ${this.solutions.length - 10} راه‌حل دیگر...
-                            </span>
-                        </div>
-                    `;
-                }
                 
                 container.innerHTML = html;
                 
@@ -1993,6 +2112,8 @@
                         const index = parseInt(e.target.closest('button').dataset.index);
                         Utils.displaySolution(this.solutions[index]);
                         Utils.showNotification('info', 'نمایش راه‌حل', `راه‌حل ${index + 1} نمایش داده شد.`);
+                        // بستن مدال
+                        document.getElementById('solutions-modal').classList.remove('active');
                     });
                 });
             },
@@ -2895,6 +3016,38 @@
                 
                 if (activeTab) activeTab.classList.add('active');
                 if (activePane) activePane.classList.add('active');
+            },
+            
+            // دانلود JSON راه‌حل‌ها
+            downloadSolutionsJSON() {
+                if (AppState.solutions.length === 0) {
+                    Utils.showNotification('warning', 'هشدار', 'هیچ راه‌حلی برای دانلود وجود ندارد.');
+                    return;
+                }
+                
+                const data = {
+                    timestamp: new Date().toISOString(),
+                    boardSize: AppState.boardSize,
+                    algorithm: AppState.currentAlgorithm,
+                    totalSolutions: AppState.solutions.length,
+                    executionTime: AppState.executionStats.executionTime,
+                    nodesChecked: AppState.executionStats.nodesChecked,
+                    solutions: AppState.solutions
+                };
+                
+                const jsonString = JSON.stringify(data, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `n-queens-solutions-n${AppState.boardSize}-${AppState.currentAlgorithm}-${Date.now()}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                Utils.showNotification('success', 'دانلود موفق', `فایل JSON با ${AppState.solutions.length} راه‌حل دانلود شد.`);
             }
         };
         
@@ -3011,6 +3164,30 @@
                 document.getElementById('refresh-stats-btn').addEventListener('click', () => {
                     AppState.updateStatsUI();
                     Utils.showNotification('info', 'آمار به‌روز شد', 'آمار اجرا تازه‌سازی شد.');
+                });
+                
+                // دکمه مشاهده راه‌حل‌ها
+                document.getElementById('view-solutions-btn').addEventListener('click', () => {
+                    AppState.updateSolutionsModal();
+                    document.getElementById('solutions-modal').classList.add('active');
+                });
+                
+                // بستن مدال راه‌حل‌ها
+                document.getElementById('solutions-modal-close').addEventListener('click', () => {
+                    document.getElementById('solutions-modal').classList.remove('active');
+                });
+                
+                document.getElementById('solutions-modal-cancel').addEventListener('click', () => {
+                    document.getElementById('solutions-modal').classList.remove('active');
+                });
+                
+                document.getElementById('solutions-modal-overlay').addEventListener('click', () => {
+                    document.getElementById('solutions-modal').classList.remove('active');
+                });
+                
+                // دانلود JSON راه‌حل‌ها
+                document.getElementById('download-json-btn').addEventListener('click', () => {
+                    Utils.downloadSolutionsJSON();
                 });
                 
                 // دکمه تغییر تم
